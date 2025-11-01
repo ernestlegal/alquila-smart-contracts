@@ -6,23 +6,23 @@ const OwnersSection = () => {
   const benefits = [
     {
       icon: Home,
-      title: "Free Listing",
-      description: "Post one property every three months at no cost",
+      title: "Publicación Gratuita",
+      description: "Publica una propiedad cada tres meses sin costo",
     },
     {
       icon: FileText,
-      title: "Smart Contracts",
-      description: "Access secure, legally-binding digital rental agreements",
+      title: "Contratos Inteligentes",
+      description: "Accede a contratos digitales seguros y legalmente vinculantes",
     },
     {
       icon: Scale,
-      title: "Fast Arbitration",
-      description: "Resolve disputes quickly in our Digital Arbitration Court",
+      title: "Arbitraje Rápido",
+      description: "Resuelve disputas rápidamente en nuestro Tribunal Digital de Arbitraje",
     },
     {
       icon: CheckCircle,
-      title: "Verified Tenants",
-      description: "Connect with pre-verified, trustworthy tenants",
+      title: "Inquilinos Verificados",
+      description: "Conéctate con inquilinos pre-verificados y confiables",
     },
   ];
 
@@ -32,11 +32,11 @@ const OwnersSection = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              For Property Owners
+              Para Propietarios
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Post one property every three months for free, access secure smart contracts, 
-              and resolve disputes quickly in our Digital Arbitration Court.
+              Publica una propiedad cada tres meses gratis, accede a contratos inteligentes seguros 
+              y resuelve disputas rápidamente en nuestro Tribunal Digital de Arbitraje.
             </p>
           </div>
 
@@ -72,11 +72,11 @@ const OwnersSection = () => {
 
           <div className="bg-card rounded-2xl p-8 shadow-lg">
             <div className="aspect-video bg-secondary rounded-lg mb-6 flex items-center justify-center">
-              <p className="text-muted-foreground">Explainer Video (40-60 seconds)</p>
+              <p className="text-muted-foreground">Video Explicativo (40-60 segundos)</p>
             </div>
             <div className="text-center">
               <Button size="lg">
-                See How It Works
+                Ver Cómo Funciona
               </Button>
             </div>
           </div>

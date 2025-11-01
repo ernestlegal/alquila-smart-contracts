@@ -7,23 +7,23 @@ const AgentsSection = () => {
   const benefits = [
     {
       icon: TrendingUp,
-      title: "Premium Visibility",
-      description: "Your listings get featured placement and priority in search results",
+      title: "Visibilidad Premium",
+      description: "Tus anuncios obtienen ubicación destacada y prioridad en los resultados",
     },
     {
       icon: Shield,
-      title: "Legal Protection",
-      description: "All contracts are legally binding and protect both parties",
+      title: "Protección Legal",
+      description: "Todos los contratos son legalmente vinculantes y protegen a ambas partes",
     },
     {
       icon: Star,
-      title: "Smart Certified Badge",
-      description: "Stand out as a verified, trustworthy professional agent",
+      title: "Insignia Certificado Smart",
+      description: "Destaca como un agente profesional verificado y confiable",
     },
     {
       icon: Zap,
-      title: "Unlimited Listings",
-      description: "Post as many properties as you need with our premium plans",
+      title: "Anuncios Ilimitados",
+      description: "Publica tantas propiedades como necesites con nuestros planes premium",
     },
   ];
 
@@ -32,13 +32,13 @@ const AgentsSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 animate-fade-in">
-            <Badge className="mb-4">For Professionals</Badge>
+            <Badge className="mb-4">Para Profesionales</Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Agents & Brokers
+              Agentes e Inmobiliarias
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Post more listings by purchasing our Smart Contracts and get premium visibility.
-              Build trust with your clients using our certified platform.
+              Publica más anuncios comprando nuestros Contratos Inteligentes y obtén visibilidad premium.
+              Construye confianza con tus clientes usando nuestra plataforma certificada.
             </p>
           </div>
 
@@ -77,19 +77,19 @@ const AgentsSection = () => {
               <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-3">
-                    <Badge variant="secondary">Smart Certified Agent</Badge>
+                    <Badge variant="secondary">Agente Certificado Smart</Badge>
                   </div>
                   <h3 className="text-2xl font-bold text-foreground mb-2">
-                    Upgrade Your Professional Profile
+                    Mejora tu Perfil Profesional
                   </h3>
                   <p className="text-muted-foreground">
-                    Join our network of verified professionals and gain access to 
-                    premium features, analytics, and priority support.
+                    Únete a nuestra red de profesionales verificados y obtén acceso a 
+                    funciones premium, analíticas y soporte prioritario.
                   </p>
                 </div>
                 <div className="flex-shrink-0">
                   <Button size="lg">
-                    Learn More
+                    Conocer Más
                   </Button>
                 </div>
               </div>

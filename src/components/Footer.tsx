@@ -3,39 +3,39 @@ import { Facebook, Twitter, Instagram, Linkedin, Mail } from "lucide-react";
 const Footer = () => {
   const sections = [
     {
-      title: "Platform",
+      title: "Plataforma",
       links: [
-        { name: "For Owners", href: "#owners" },
-        { name: "For Tenants", href: "#tenants" },
-        { name: "For Agents", href: "#agents" },
-        { name: "Download Contract", href: "#download" },
+        { name: "Para Propietarios", href: "#owners" },
+        { name: "Para Inquilinos", href: "#tenants" },
+        { name: "Para Agentes", href: "#agents" },
+        { name: "Descargar Contrato", href: "#download" },
       ],
     },
     {
-      title: "Company",
+      title: "Empresa",
       links: [
-        { name: "Our Purpose", href: "#purpose" },
-        { name: "Legal Center", href: "#legal" },
-        { name: "Smart Tips", href: "#blog" },
-        { name: "Contact", href: "#contact" },
+        { name: "Nuestro Propósito", href: "#purpose" },
+        { name: "Centro Legal", href: "#legal" },
+        { name: "Consejos Smart", href: "#blog" },
+        { name: "Contacto", href: "#contact" },
       ],
     },
     {
       title: "Legal",
       links: [
-        { name: "Privacy Policy", href: "#privacy" },
-        { name: "Terms & Conditions", href: "#terms" },
-        { name: "Complaints Book", href: "#complaints" },
-        { name: "Arbitration Rules", href: "#arbitration" },
+        { name: "Política de Privacidad", href: "#privacy" },
+        { name: "Términos y Condiciones", href: "#terms" },
+        { name: "Libro de Reclamaciones", href: "#complaints" },
+        { name: "Reglas de Arbitraje", href: "#arbitration" },
       ],
     },
     {
-      title: "Support",
+      title: "Soporte",
       links: [
-        { name: "Help Center", href: "#help" },
-        { name: "FAQs", href: "#faq" },
-        { name: "Contact Support", href: "#support" },
-        { name: "Report Issue", href: "#report" },
+        { name: "Centro de Ayuda", href: "#help" },
+        { name: "Preguntas Frecuentes", href: "#faq" },
+        { name: "Contactar Soporte", href: "#support" },
+        { name: "Reportar Problema", href: "#report" },
       ],
     },
   ];
@@ -58,7 +58,7 @@ const Footer = () => {
               <span className="text-xl font-bold text-foreground">Alquila Smart</span>
             </a>
             <p className="text-sm text-muted-foreground mb-4">
-              Rent with confidence, technology, and fairness.
+              Alquila con confianza, tecnología y justicia.
             </p>
             <div className="flex space-x-3">
               {socialLinks.map((social, index) => {
@@ -100,14 +100,14 @@ const Footer = () => {
         {/* Newsletter */}
         <div className="border-t border-border pt-8 mb-8">
           <div className="max-w-md">
-            <h3 className="font-semibold text-foreground mb-2">Stay Updated</h3>
+            <h3 className="font-semibold text-foreground mb-2">Mantente Actualizado</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Get the latest news and smart rental tips delivered to your inbox.
+              Recibe las últimas noticias y consejos de alquiler inteligente en tu bandeja de entrada.
             </p>
             <div className="flex gap-2">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Ingresa tu correo"
                 className="flex-1 px-4 py-2 rounded-lg border border-input bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <button className="px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors flex items-center">
@@ -121,14 +121,14 @@ const Footer = () => {
         <div className="border-t border-border pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Alquila Smart. All rights reserved.
+              © {new Date().getFullYear()} Alquila Smart. Todos los derechos reservados.
             </p>
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <a href="#privacy" className="hover:text-primary transition-colors">
-                Privacy
+                Privacidad
               </a>
               <a href="#terms" className="hover:text-primary transition-colors">
-                Terms
+                Términos
               </a>
               <a href="#cookies" className="hover:text-primary transition-colors">
                 Cookies

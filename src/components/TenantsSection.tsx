@@ -6,23 +6,23 @@ const TenantsSection = () => {
   const features = [
     {
       icon: Shield,
-      title: "Protected Deposit",
-      description: "Your security deposit is guaranteed and protected by our platform",
+      title: "Depósito Protegido",
+      description: "Tu depósito de garantía está garantizado y protegido por nuestra plataforma",
     },
     {
       icon: TrendingDown,
-      title: "No Hidden Fees",
-      description: "Transparent pricing with no surprise charges or commissions",
+      title: "Sin Tarifas Ocultas",
+      description: "Precios transparentes sin cargos sorpresa ni comisiones",
     },
     {
       icon: Clock,
-      title: "Quick Refunds",
-      description: "Get your deposit back easily and quickly when you move out",
+      title: "Reembolsos Rápidos",
+      description: "Recupera tu depósito fácil y rápidamente cuando te mudes",
     },
     {
       icon: Award,
-      title: "Verified Properties",
-      description: "All listings are verified to ensure authenticity and quality",
+      title: "Propiedades Verificadas",
+      description: "Todos los anuncios están verificados para garantizar autenticidad y calidad",
     },
   ];
 
@@ -32,10 +32,10 @@ const TenantsSection = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              For Tenants
+              Para Inquilinos
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Your deposit is protected. Rent without fear. Get your money back easily with Alquila Smart.
+              Tu depósito está protegido. Alquila sin miedo. Recupera tu dinero fácilmente con Alquila Smart.
             </p>
           </div>
 
@@ -66,17 +66,17 @@ const TenantsSection = () => {
           <div className="bg-gradient-primary rounded-2xl p-8 text-center text-primary-foreground shadow-primary">
             <div className="max-w-3xl mx-auto space-y-6">
               <h3 className="text-2xl sm:text-3xl font-bold">
-                Rent Your Next Home with Complete Peace of Mind
+                Alquila tu Próximo Hogar con Completa Tranquilidad
               </h3>
               <p className="text-lg opacity-90">
-                Browse verified listings, sign smart contracts, and enjoy the security 
-                of guaranteed deposit refunds.
+                Explora anuncios verificados, firma contratos inteligentes y disfruta de la seguridad 
+                de reembolsos de depósito garantizados.
               </p>
               <div className="aspect-video bg-background/10 rounded-lg mb-6 flex items-center justify-center">
-                <p className="text-primary-foreground/80">Tenant Explainer Video (30-45 seconds)</p>
+                <p className="text-primary-foreground/80">Video Explicativo para Inquilinos (30-45 segundos)</p>
               </div>
               <Button size="lg" variant="secondary">
-                Find Your Next Safe Home
+                Encuentra tu Próximo Hogar Seguro
               </Button>
             </div>
           </div>

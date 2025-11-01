@@ -4,12 +4,12 @@ import { Download, FileText, CheckCircle2 } from "lucide-react";
 
 const DownloadSection = () => {
   const features = [
-    "Legally binding rental agreement",
-    "Deposit protection clauses",
-    "Clear terms and conditions",
-    "Arbitration procedures",
-    "Property condition checklist",
-    "Payment schedules",
+    "Contrato de alquiler legalmente vinculante",
+    "Cláusulas de protección de depósito",
+    "Términos y condiciones claros",
+    "Procedimientos de arbitraje",
+    "Lista de verificación de estado de la propiedad",
+    "Calendarios de pago",
   ];
 
   return (
@@ -21,19 +21,19 @@ const DownloadSection = () => {
               <FileText className="h-10 w-10 text-primary" />
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Download Your Smart Rental Contract
+              Descarga tu Contrato Inteligente de Alquiler
             </h2>
             <p className="text-lg text-muted-foreground">
-              Get your legally-binding rental contract and rent with complete confidence
+              Obtén tu contrato de alquiler legalmente vinculante y alquila con total confianza
             </p>
           </div>
 
           <Card className="shadow-lg">
             <CardContent className="p-8">
               <div className="space-y-6">
-                <div>
+              <div>
                   <h3 className="text-xl font-semibold text-foreground mb-4">
-                    What's Included:
+                    Qué Incluye:
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {features.map((feature, index) => (
@@ -46,21 +46,21 @@ const DownloadSection = () => {
                 </div>
 
                 <div className="bg-secondary/50 rounded-lg p-6">
-                  <h4 className="font-semibold text-foreground mb-2">Legal Validity</h4>
+                  <h4 className="font-semibold text-foreground mb-2">Validez Legal</h4>
                   <p className="text-sm text-muted-foreground">
-                    Our Smart Rental Contract is fully compliant with local rental laws and 
-                    regulations. It has been reviewed by legal professionals to ensure maximum 
-                    protection for both landlords and tenants.
+                    Nuestro Contrato Inteligente de Alquiler cumple completamente con las leyes y 
+                    regulaciones locales de alquiler. Ha sido revisado por profesionales legales para garantizar la máxima 
+                    protección tanto para propietarios como para inquilinos.
                   </p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                   <Button size="lg" className="shadow-primary">
                     <Download className="mr-2 h-5 w-5" />
-                    Download Contract
+                    Descargar Contrato
                   </Button>
                   <Button size="lg" variant="outline">
-                    View Sample
+                    Ver Muestra
                   </Button>
                 </div>
               </div>

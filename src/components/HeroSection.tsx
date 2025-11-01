@@ -19,38 +19,38 @@ const HeroSection = () => {
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-            No agent guarantees you a good tenant, and no landlord guarantees the return of your deposit.{" "}
-            <span className="text-primary">We do.</span>
+            Ningún agente te garantiza un buen inquilino, y ningún propietario te garantiza la devolución de tu depósito.{" "}
+            <span className="text-primary">Nosotros sí.</span>
           </h1>
           
           <p className="text-xl sm:text-2xl text-muted-foreground font-light">
-            Rent with confidence, with technology and fairness.
+            Alquila con confianza, con tecnología y justicia.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
             <Button size="lg" className="group shadow-primary">
               <Upload className="mr-2 h-5 w-5" />
-              Post for Free
+              Publica Gratis
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button size="lg" variant="outline">
               <Download className="mr-2 h-5 w-5" />
-              Download Contract
+              Descargar Contrato
             </Button>
           </div>
 
           <div className="pt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
             <div className="space-y-2">
               <div className="text-3xl font-bold text-primary">100%</div>
-              <p className="text-sm text-muted-foreground">Deposit Guaranteed</p>
+              <p className="text-sm text-muted-foreground">Depósito Garantizado</p>
             </div>
             <div className="space-y-2">
               <div className="text-3xl font-bold text-primary">24h</div>
-              <p className="text-sm text-muted-foreground">Fast Arbitration</p>
+              <p className="text-sm text-muted-foreground">Arbitraje Rápido</p>
             </div>
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-primary">Free</div>
-              <p className="text-sm text-muted-foreground">First Listing</p>
+              <div className="text-3xl font-bold text-primary">Gratis</div>
+              <p className="text-sm text-muted-foreground">Primera Publicación</p>
             </div>
           </div>
         </div>

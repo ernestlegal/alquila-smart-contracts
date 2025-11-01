@@ -5,18 +5,18 @@ const PurposeSection = () => {
   const values = [
     {
       icon: Scale,
-      title: "Balance",
-      description: "Creating fairness between landlords and tenants through technology",
+      title: "Equilibrio",
+      description: "Creando justicia entre propietarios e inquilinos a través de la tecnología",
     },
     {
       icon: Users,
-      title: "Trust",
-      description: "Building transparent relationships in every rental transaction",
+      title: "Confianza",
+      description: "Construyendo relaciones transparentes en cada transacción de alquiler",
     },
     {
       icon: Heart,
-      title: "Protection",
-      description: "Safeguarding the rights and investments of all parties",
+      title: "Protección",
+      description: "Salvaguardando los derechos e inversiones de todas las partes",
     },
   ];
 
@@ -26,12 +26,12 @@ const PurposeSection = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              We Believe in Fair Renting for Everyone
+              Creemos en Alquileres Justos para Todos
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              We created Alquila Smart because we saw an imbalance between landlords and tenants. 
-              Some fear losing their money; others fear losing their property. Our mission is to 
-              restore balance through technology, clear contracts, and fast arbitration.
+              Creamos Alquila Smart porque vimos un desequilibrio entre propietarios e inquilinos. 
+              Algunos temen perder su dinero; otros temen perder su propiedad. Nuestra misión es 
+              restaurar el equilibrio a través de tecnología, contratos claros y arbitraje rápido.
             </p>
           </div>
 
@@ -60,14 +60,14 @@ const PurposeSection = () => {
             <CardContent className="p-8">
               <div className="max-w-4xl mx-auto space-y-6">
                 <h3 className="text-2xl font-bold text-center text-foreground">
-                  Our Story
+                  Nuestra Historia
                 </h3>
                 <div className="aspect-video bg-secondary/50 rounded-lg flex items-center justify-center">
-                  <p className="text-muted-foreground">Purpose Manifesto Video</p>
+                  <p className="text-muted-foreground">Video Manifiesto de Propósito</p>
                 </div>
                 <p className="text-center text-muted-foreground">
-                  Watch our story and discover how we're transforming the rental market 
-                  one smart contract at a time.
+                  Mira nuestra historia y descubre cómo estamos transformando el mercado de alquiler 
+                  un contrato inteligente a la vez.
                 </p>
               </div>
             </CardContent>

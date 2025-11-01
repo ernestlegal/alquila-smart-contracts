@@ -6,13 +6,13 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "Owners", href: "#owners" },
-    { name: "Tenants", href: "#tenants" },
-    { name: "Publish", href: "#publish" },
-    { name: "Download", href: "#download" },
-    { name: "Our Purpose", href: "#purpose" },
-    { name: "Help", href: "#help" },
+    { name: "Inicio", href: "#home" },
+    { name: "Propietarios", href: "#owners" },
+    { name: "Inquilinos", href: "#tenants" },
+    { name: "Publicar", href: "#publish" },
+    { name: "Descargar", href: "#download" },
+    { name: "Nuestro Propósito", href: "#purpose" },
+    { name: "Ayuda", href: "#help" },
   ];
 
   return (
@@ -37,7 +37,7 @@ const Header = () => {
               </a>
             ))}
             <Button size="sm" className="ml-4">
-              Post for Free
+              Publica Gratis
             </Button>
           </div>
 
@@ -64,7 +64,7 @@ const Header = () => {
               </a>
             ))}
             <div className="pt-4">
-              <Button className="w-full">Post for Free</Button>
+              <Button className="w-full">Publica Gratis</Button>
             </div>
           </div>
         )}

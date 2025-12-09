@@ -16,7 +16,7 @@ const OwnersSection = () => {
     },
     {
       icon: Scale,
-      title: "Arbitraje Rápido",
+      title: "Desalojo por Arbitraje Rápido",
       description: "Resuelve disputas rápidamente en nuestro Tribunal Digital de Arbitraje",
     },
     {

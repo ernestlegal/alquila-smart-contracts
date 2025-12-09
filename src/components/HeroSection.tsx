@@ -42,7 +42,7 @@ const HeroSection = () => {
           <div className="pt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
             <div className="space-y-2">
               <div className="text-3xl font-bold text-primary">100%</div>
-              <p className="text-sm text-muted-foreground">Depósito Garantizado</p>
+              <p className="text-sm text-muted-foreground">Devolución de tu Garantía</p>
             </div>
             <div className="space-y-2">
               <div className="text-3xl font-bold text-primary">24h</div>

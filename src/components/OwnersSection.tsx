@@ -21,7 +21,7 @@ const OwnersSection = () => {
     },
     {
       icon: CheckCircle,
-      title: "Inquilinos Verificados",
+      title: "No más inquilinos morosos",
       description: "Conéctate con inquilinos pre-verificados y confiables",
     },
   ];

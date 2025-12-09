@@ -19,7 +19,7 @@ const HeroSection = () => {
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-            Ningún agente te garantiza un buen inquilino, y ningún propietario te garantiza la devolución de tu depósito.{" "}
+            Ningún agente te garantiza un buen inquilino, y ningún propietario te garantía por depósito.{" "}
             <span className="text-primary">Nosotros sí.</span>
           </h1>
           

@@ -1,44 +1,86 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   const navItems = [
-    { name: "Inicio", href: "#home" },
-    { name: "Propietarios", href: "#owners" },
-    { name: "Inquilinos", href: "#tenants" },
-    { name: "Publicar", href: "#publish" },
-    { name: "Descargar", href: "#download" },
-    { name: "Nuestro Propósito", href: "#purpose" },
-    { name: "Ayuda", href: "#help" },
+    { name: "Inicio", href: "/", isRoute: true },
+    { name: "Nuestro Propósito", href: "/nuestro-proposito", isRoute: true },
+    { name: "Propietarios", href: "/propietarios", isRoute: true },
+    { name: "Inquilinos", href: "/inquilinos", isRoute: true },
+    { name: "Publicar", href: "https://alquilo.ia", isExternal: true },
+    { name: "Descargar", href: isHome ? "#download" : "/#download", isRoute: false },
+    { name: "Ayuda", href: isHome ? "#help" : "/#help", isRoute: false },
   ];
+
+  const renderNavLink = (item: typeof navItems[0], isMobile = false) => {
+    const baseClasses = isMobile
+      ? "block px-3 py-2 text-base font-medium text-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
+      : "px-3 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors";
+
+    if (item.isExternal) {
+      return (
+        <a
+          key={item.name}
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={baseClasses}
+          onClick={isMobile ? () => setIsOpen(false) : undefined}
+        >
+          {item.name}
+        </a>
+      );
+    }
+
+    if (item.isRoute) {
+      return (
+        <Link
+          key={item.name}
+          to={item.href}
+          className={baseClasses}
+          onClick={isMobile ? () => setIsOpen(false) : undefined}
+        >
+          {item.name}
+        </Link>
+      );
+    }
+
+    return (
+      <a
+        key={item.name}
+        href={item.href}
+        className={baseClasses}
+        onClick={isMobile ? () => setIsOpen(false) : undefined}
+      >
+        {item.name}
+      </a>
+    );
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#home" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-primary" />
             <span className="text-xl font-bold text-foreground">Alquila Smart</span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="px-3 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
-              >
-                {item.name}
-              </a>
-            ))}
-            <Button size="sm" className="ml-4">
-              Publica Gratis
-            </Button>
+            {navItems.map((item) => renderNavLink(item))}
+            <a href="https://alquilo.ia" target="_blank" rel="noopener noreferrer">
+              <Button size="sm" className="ml-4">
+                Publica Gratis
+              </Button>
+            </a>
           </div>
 
           {/* Mobile menu button */}
@@ -53,18 +95,11 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden py-4 space-y-2 border-t border-border">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="block px-3 py-2 text-base font-medium text-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
-              >
-                {item.name}
-              </a>
-            ))}
+            {navItems.map((item) => renderNavLink(item, true))}
             <div className="pt-4">
-              <Button className="w-full">Publica Gratis</Button>
+              <a href="https://alquilo.ia" target="_blank" rel="noopener noreferrer">
+                <Button className="w-full">Publica Gratis</Button>
+              </a>
             </div>
           </div>
         )}

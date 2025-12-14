@@ -19,6 +19,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Header />
+        <div className="pt-[100px] sm:pt-[100px]">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/nuestro-proposito" element={<NuestroPropositoPage />} />
@@ -27,6 +28,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

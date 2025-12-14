@@ -85,10 +85,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img src={logo} alt="Alquila Smart" className="h-10 shrink-0" />
-            <div className="flex flex-col">
-              <span className="text-xl font-bold text-foreground leading-tight">Alquila Smart</span>
-              <span className="text-[10px] text-muted-foreground leading-tight hidden sm:block">Bajada Balta 169, Of. 1204 (Al final del parque Kennedy)</span>
-            </div>
+            <span className="text-[10px] text-muted-foreground leading-tight hidden sm:block">Bajada Balta 169, Of. 1204 (Al final del parque Kennedy)</span>
           </Link>
 
           {/* Desktop Navigation */}

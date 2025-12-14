@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -83,7 +84,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-primary shrink-0" />
+            <img src={logo} alt="Alquila Smart" className="h-10 shrink-0" />
             <div className="flex flex-col">
               <span className="text-xl font-bold text-foreground leading-tight">Alquila Smart</span>
               <span className="text-[10px] text-muted-foreground leading-tight hidden sm:block">Bajada Balta 169, Of. 1204 (Al final del parque Kennedy)</span>

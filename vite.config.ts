@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 // Configura la base URL aquí para producción (ej: "/alquiler" o "/")
-const BASE_URL = "/alquiler";
+const BASE_URL = "/";
 
 export default defineConfig(({ mode }) => ({
   base: mode === "production" ? BASE_URL : "/",

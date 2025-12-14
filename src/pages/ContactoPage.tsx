@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactoPage = () => {
   const { toast } = useToast();
@@ -24,16 +25,28 @@ const ContactoPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // TODO: Implement email sending with Resend
-    // For now, just show a success message
-    setTimeout(() => {
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData,
+      });
+
+      if (error) throw error;
+
       toast({
         title: "Mensaje enviado",
-        description: "Nos pondremos en contacto contigo pronto.",
+        description: "Nos pondremos en contacto contigo pronto. Revisa tu email para la confirmación.",
       });
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (error: any) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error al enviar",
+        description: "Hubo un problema al enviar tu mensaje. Por favor intenta de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (

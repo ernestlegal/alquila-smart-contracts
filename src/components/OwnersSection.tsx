@@ -71,8 +71,14 @@ const OwnersSection = () => {
           </div>
 
           <div className="bg-card rounded-2xl p-8 shadow-lg">
-            <div className="aspect-video bg-secondary rounded-lg mb-6 flex items-center justify-center">
-              <p className="text-muted-foreground">Video Explicativo (40-60 segundos)</p>
+            <div className="aspect-video rounded-lg mb-6 overflow-hidden">
+              <iframe
+                src="https://www.youtube.com/embed/ZezchfSDN7o"
+                title="Video Explicativo"
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </div>
             <div className="text-center">
               <Button size="lg">

@@ -24,23 +24,6 @@ const InquilinosPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-primary" />
-              <span className="text-xl font-bold text-foreground">Alquila Smart</span>
-            </Link>
-            <Link to="/">
-              <Button variant="ghost" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Volver al Inicio
-              </Button>
-            </Link>
-          </div>
-        </nav>
-      </header>
 
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4 bg-gradient-hero">
@@ -193,7 +176,7 @@ const InquilinosPage = () => {
               Busca propiedades con contratos inteligentes que protegen tus derechos como inquilino.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="https://alquilo.ia" target="_blank" rel="noopener noreferrer">
+              <a href="https://alquilo.ai" target="_blank" rel="noopener noreferrer">
                 <Button size="lg">Buscar Propiedades</Button>
               </a>
               <Link to="/nuestro-proposito">

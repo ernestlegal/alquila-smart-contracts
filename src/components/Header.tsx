@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, MapPin, Phone, Clock } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -79,14 +79,35 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex flex-col items-start">
-            <img src={logo} alt="Alquila Smart" className="h-14" />
-            <span className="text-xs font-medium text-primary leading-tight hidden sm:block ml-12">Bajada Balta 169, Of. 1204 (Al final del parque Kennedy)</span>
-          </Link>
+    <>
+      {/* Top Bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-2 text-xs sm:text-sm">
+            <div className="flex items-center gap-1.5">
+              <MapPin size={14} />
+              <span>Bajada Balta 169, Of. 1204 (Al final del parque Kennedy)</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Phone size={14} />
+              <span>987 507 471</span>
+            </div>
+            <div className="hidden sm:flex items-center gap-1.5">
+              <Clock size={14} />
+              <span>Lun - Vie: 9:00 - 17:30 | Sáb: 9:00 - 13:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Header */}
+      <header className="fixed top-[40px] sm:top-[36px] left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link to="/" className="flex items-center">
+              <img src={logo} alt="Alquila Smart" className="h-12" />
+            </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
@@ -120,6 +141,7 @@ const Header = () => {
         )}
       </nav>
     </header>
+    </>
   );
 };
 

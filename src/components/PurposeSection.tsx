@@ -62,8 +62,14 @@ const PurposeSection = () => {
                 <h3 className="text-2xl font-bold text-center text-foreground">
                   Nuestra Historia
                 </h3>
-                <div className="aspect-video bg-secondary/50 rounded-lg flex items-center justify-center">
-                  <p className="text-muted-foreground">Video Manifiesto de Propósito</p>
+                <div className="aspect-video rounded-lg overflow-hidden">
+                  <iframe
+                    src="https://www.youtube.com/embed/ZezchfSDN7o"
+                    title="Video Manifiesto de Propósito"
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
                 </div>
                 <p className="text-center text-muted-foreground">
                   Mira nuestra historia y descubre cómo estamos transformando el mercado de alquiler 

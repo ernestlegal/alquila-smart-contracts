@@ -13,15 +13,29 @@ const Header = () => {
     { name: "Nuestro Propósito", href: "/nuestro-proposito", isRoute: true },
     { name: "Propietarios", href: "/propietarios", isRoute: true },
     { name: "Inquilinos", href: "/inquilinos", isRoute: true },
-    { name: "Publicar", href: "https://alquilo.ia", isExternal: true },
+    { name: "Publicar", href: "https://alquilo.ai", isExternal: true },
     { name: "Descargar", href: isHome ? "#download" : "/#download", isRoute: false },
     { name: "Ayuda", href: isHome ? "#help" : "/#help", isRoute: false },
   ];
 
+  const isActive = (href: string) => {
+    if (href === "/") return location.pathname === "/";
+    return location.pathname.startsWith(href);
+  };
+
   const renderNavLink = (item: typeof navItems[0], isMobile = false) => {
+    const active = item.isRoute && isActive(item.href);
     const baseClasses = isMobile
-      ? "block px-3 py-2 text-base font-medium text-foreground hover:text-primary hover:bg-secondary rounded-lg transition-colors"
-      : "px-3 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors";
+      ? `block px-3 py-2 text-base font-medium rounded-lg transition-colors ${
+          active 
+            ? "text-primary bg-primary/10" 
+            : "text-foreground hover:text-primary hover:bg-secondary"
+        }`
+      : `px-3 py-2 text-sm font-medium transition-colors ${
+          active 
+            ? "text-primary border-b-2 border-primary" 
+            : "text-foreground hover:text-primary"
+        }`;
 
     if (item.isExternal) {
       return (
@@ -76,7 +90,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item) => renderNavLink(item))}
-            <a href="https://alquilo.ia" target="_blank" rel="noopener noreferrer">
+            <a href="https://alquilo.ai" target="_blank" rel="noopener noreferrer">
               <Button size="sm" className="ml-4">
                 Publica Gratis
               </Button>
@@ -97,7 +111,7 @@ const Header = () => {
           <div className="md:hidden py-4 space-y-2 border-t border-border">
             {navItems.map((item) => renderNavLink(item, true))}
             <div className="pt-4">
-              <a href="https://alquilo.ia" target="_blank" rel="noopener noreferrer">
+              <a href="https://alquilo.ai" target="_blank" rel="noopener noreferrer">
                 <Button className="w-full">Publica Gratis</Button>
               </a>
             </div>

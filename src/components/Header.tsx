@@ -84,7 +84,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex flex-col items-start">
-            <img src={logo} alt="Alquila Smart" className="h-10" />
+            <img src={logo} alt="Alquila Smart" className="h-14" />
             <span className="text-[10px] text-muted-foreground leading-tight hidden sm:block">Bajada Balta 169, Of. 1204 (Al final del parque Kennedy)</span>
           </Link>
 

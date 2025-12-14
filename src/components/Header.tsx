@@ -17,7 +17,7 @@ const Header = () => {
     { name: "Publicar", href: "https://alquilo.ai", isExternal: true },
     { name: "Descargar", href: isHome ? "#download" : "/#download", isRoute: false },
     { name: "Contacto", href: "/contacto", isRoute: true },
-    { name: "Ayuda", href: isHome ? "#help" : "/#help", isRoute: false },
+    { name: "Ayuda", href: "/ayuda", isRoute: true },
   ];
 
   const isActive = (href: string) => {

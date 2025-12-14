@@ -83,8 +83,8 @@ const Header = () => {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <img src={logo} alt="Alquila Smart" className="h-10 shrink-0" />
+          <Link to="/" className="flex flex-col items-start">
+            <img src={logo} alt="Alquila Smart" className="h-10" />
             <span className="text-[10px] text-muted-foreground leading-tight hidden sm:block">Bajada Balta 169, Of. 1204 (Al final del parque Kennedy)</span>
           </Link>
 

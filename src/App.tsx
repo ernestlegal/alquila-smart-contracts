@@ -19,7 +19,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/alquiler">
         <Header />
         <div className="pt-[100px] sm:pt-[100px]">
         <Routes>

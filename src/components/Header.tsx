@@ -16,6 +16,7 @@ const Header = () => {
     { name: "Inquilinos", href: "/inquilinos", isRoute: true },
     { name: "Publicar", href: "https://alquilo.ai", isExternal: true },
     { name: "Descargar", href: isHome ? "#download" : "/#download", isRoute: false },
+    { name: "Contacto", href: "/contacto", isRoute: true },
     { name: "Ayuda", href: isHome ? "#help" : "/#help", isRoute: false },
   ];
 

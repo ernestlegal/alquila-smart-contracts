@@ -14,6 +14,7 @@ const Header = () => {
     { name: "Nuestro Propósito", href: "/nuestro-proposito", isRoute: true },
     { name: "Propietarios", href: "/propietarios", isRoute: true },
     { name: "Inquilinos", href: "/inquilinos", isRoute: true },
+    { name: "Recupera tu Propiedad", href: "/recupera-tu-propiedad", isRoute: true },
     { name: "Publicar", href: "https://alquilo.ai", isExternal: true },
     { name: "Descargar", href: isHome ? "#download" : "/#download", isRoute: false },
     { name: "Contacto", href: "/contacto", isRoute: true },

@@ -16,8 +16,8 @@ const OwnersSection = () => {
     },
     {
       icon: Scale,
-      title: "Desalojo por Arbitraje Rápido",
-      description: "Resuelve disputas rápidamente en nuestro Tribunal Digital de Arbitraje",
+      title: "Desalojo por Escritura Pública",
+      description: "Resuelve disputas rápidamente con nuestro sistema y obtén desalojo en 15 - 30 días.",
     },
     {
       icon: CheckCircle,

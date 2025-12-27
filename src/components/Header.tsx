@@ -91,7 +91,7 @@ const Header = () => {
             </div>
             <div className="flex items-center gap-1.5">
               <Phone size={14} />
-              <span>987 507 471</span>
+              <span>969 104 933</span>
             </div>
             <div className="hidden sm:flex items-center gap-1.5">
               <Clock size={14} />

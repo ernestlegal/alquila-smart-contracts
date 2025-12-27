@@ -1,3 +1,4 @@
+import ScrollToTop from "./ScrollToTop";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,6 +12,7 @@ import InquilinosPage from "./pages/InquilinosPage";
 import ContactoPage from "./pages/ContactoPage";
 import AyudaPage from "./pages/AyudaPage";
 import NotFound from "./pages/NotFound";
+import WhatsAppButton from './components/WhatsAppButton';
 
 const queryClient = new QueryClient();
 
@@ -20,19 +22,20 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop /> 
         <Header />
         <div className="pt-[100px] sm:pt-[100px]">
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/nuestro-proposito" element={<NuestroPropositoPage />} />
-          <Route path="/propietarios" element={<PropietariosPage />} />
-          <Route path="/inquilinos" element={<InquilinosPage />} />
-          <Route path="/contacto" element={<ContactoPage />} />
-          <Route path="/ayuda" element={<AyudaPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/nuestro-proposito" element={<NuestroPropositoPage />} />
+            <Route path="/propietarios" element={<PropietariosPage />} />
+            <Route path="/inquilinos" element={<InquilinosPage />} />
+            <Route path="/contacto" element={<ContactoPage />} />
+            <Route path="/ayuda" element={<AyudaPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </div>
+        <WhatsAppButton />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

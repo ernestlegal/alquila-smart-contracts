@@ -63,9 +63,14 @@ const RecuperaTuPropiedadPage = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
             Recupera Tu Propiedad
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            ¿Tienes un inquilino que no paga y no se va? Te ayudamos a recuperar tu inmueble 
-            de forma legal y en el menor tiempo posible.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
+            Esta sección está dirigida a propietarios que ya tienen un contrato de alquiler 
+            celebrado antes de conocer nuestro servicio.
+          </p>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+            Si no puedes migrar a nuestro servicio y tu inquilino no desea llegar a un acuerdo, 
+            no te paga y necesitas iniciar un <strong className="text-foreground">desalojo judicial</strong>, 
+            te conectamos con un <strong className="text-foreground">abogado especialista en desalojos</strong>.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contacto">

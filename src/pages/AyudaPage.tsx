@@ -31,7 +31,7 @@ const faqData = [
     questions: [
       {
         question: "¿Cómo protege Alquila Smart mi inmueble?",
-        answer: "Nuestros contratos Smart incorporan un mecanismo de desalojo arbitral rápido. Mientras que en la vía judicial un desalojo puede durar entre 10 meses y 3 años, con nuestro sistema el proceso se reduce a aproximadamente 15-30 días."
+        answer: "Nuestros contratos Smart incorporan un mecanismo de desalojo por Clausula Notarial. Mientras que en la vía judicial un desalojo puede durar entre 10 meses y 3 años, con nuestro sistema el proceso se reduce a aproximadamente 15-30 días, para luego solo pedir al Juez de su distrito el lanzamiento con apoyo policial."
       },
       {
         question: "¿Qué pasa si mi inquilino deja de pagar?",
@@ -98,7 +98,7 @@ const faqData = [
       },
       {
         question: "¿Cómo contacto al soporte?",
-        answer: "Puedes contactarnos por teléfono al 987 507 471, por email a walter@wsrdigital.com, o visitarnos en nuestra oficina en Bajada Balta 169, Of. 1204, Miraflores."
+        answer: "Puedes contactarnos por teléfono al 969 104 933, por email a info@alquilasmart.com, o visitarnos en nuestra oficina en Bajada Balta 169, Of. 1204, Miraflores."
       },
       {
         question: "¿Cuál es el horario de atención?",

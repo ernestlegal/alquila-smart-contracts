@@ -97,10 +97,10 @@ const ContactoPage = () => {
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Teléfono</h3>
                     <a 
-                      href="tel:+51987507471" 
+                      href="tel:+51969104933" 
                       className="text-primary hover:underline"
                     >
-                      +51 987 507 471
+                      +51 969 104 933
                     </a>
                   </div>
                 </div>
@@ -112,10 +112,10 @@ const ContactoPage = () => {
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Email</h3>
                     <a 
-                      href="mailto:walter@wsrdigital.com" 
+                      href="mailto:info@alquilasmart.com" 
                       className="text-primary hover:underline"
                     >
-                      walter@wsrdigital.com
+                      info@alquilasmart.com
                     </a>
                   </div>
                 </div>

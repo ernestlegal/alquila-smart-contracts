@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, MapPin, Phone, Clock } from "lucide-react";
+import { Menu, X, MapPin, Phone, Clock, AlertTriangle } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ const Header = () => {
     { name: "Nuestro Propósito", href: "/nuestro-proposito", isRoute: true },
     { name: "Propietarios", href: "/propietarios", isRoute: true },
     { name: "Inquilinos", href: "/inquilinos", isRoute: true },
-    { name: "Recupera tu Propiedad", href: "/recupera-tu-propiedad", isRoute: true },
+    { name: "Recupera tu Propiedad", href: "/recupera-tu-propiedad", isRoute: true, highlight: true },
     { name: "Publicar", href: "https://alquilo.ai", isExternal: true },
     { name: "Descargar", href: isHome ? "#download" : "/#download", isRoute: false },
     { name: "Contacto", href: "/contacto", isRoute: true },
@@ -29,16 +29,29 @@ const Header = () => {
   const renderNavLink = (item: typeof navItems[0], isMobile = false) => {
     const active = item.isRoute && isActive(item.href);
     const baseClasses = isMobile
-      ? `block px-3 py-2 text-base font-medium rounded-lg transition-colors ${
+      ? `block px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
           active 
             ? "text-primary bg-primary/10" 
-            : "text-foreground hover:text-primary hover:bg-secondary"
+            : item.highlight
+              ? "text-destructive bg-destructive/10 hover:bg-destructive/20"
+              : "text-foreground hover:text-primary hover:bg-secondary"
         }`
-      : `px-3 py-2 text-sm font-medium transition-colors ${
+      : `px-2 py-1.5 text-xs font-medium transition-colors ${
           active 
             ? "text-primary border-b-2 border-primary" 
-            : "text-foreground hover:text-primary"
+            : item.highlight
+              ? "text-destructive hover:text-destructive/80"
+              : "text-foreground hover:text-primary"
         }`;
+
+    const content = item.highlight ? (
+      <span className="flex items-center gap-1">
+        <AlertTriangle className="w-3 h-3" />
+        {item.name}
+      </span>
+    ) : (
+      item.name
+    );
 
     if (item.isExternal) {
       return (
@@ -50,7 +63,7 @@ const Header = () => {
           className={baseClasses}
           onClick={isMobile ? () => setIsOpen(false) : undefined}
         >
-          {item.name}
+          {content}
         </a>
       );
     }
@@ -63,7 +76,7 @@ const Header = () => {
           className={baseClasses}
           onClick={isMobile ? () => setIsOpen(false) : undefined}
         >
-          {item.name}
+          {content}
         </Link>
       );
     }
@@ -75,7 +88,7 @@ const Header = () => {
         className={baseClasses}
         onClick={isMobile ? () => setIsOpen(false) : undefined}
       >
-        {item.name}
+        {content}
       </a>
     );
   };

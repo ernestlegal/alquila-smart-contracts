@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Index from "./pages/Index";
 import NuestroPropositoPage from "./pages/NuestroPropositoPage";
 import PropietariosPage from "./pages/PropietariosPage";
+import RecuperaTuPropiedadPage from "./pages/RecuperaTuPropiedadPage";
 import InquilinosPage from "./pages/InquilinosPage";
 import ContactoPage from "./pages/ContactoPage";
 import AyudaPage from "./pages/AyudaPage";
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/nuestro-proposito" element={<NuestroPropositoPage />} />
             <Route path="/propietarios" element={<PropietariosPage />} />
+            <Route path="/recupera-tu-propiedad" element={<RecuperaTuPropiedadPage />} />
             <Route path="/inquilinos" element={<InquilinosPage />} />
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/ayuda" element={<AyudaPage />} />

@@ -4,10 +4,10 @@ import { Download, FileText, CheckCircle2 } from "lucide-react";
 
 const DownloadSection = () => {
   const features = [
-    "Contrato de alquiler legalmente vinculante",
-    "Cláusulas de protección de depósito",
+    "Clausula de Desalojo por escritura pública.",
+    "Cláusulas de protección de Garantia.",
     "Términos y condiciones claros",
-    "Procedimientos de arbitraje",
+    "Procedimientos de desalojo en 15 - 30 días.",
     "Lista de verificación de estado de la propiedad",
     "Calendarios de pago",
   ];

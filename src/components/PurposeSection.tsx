@@ -30,8 +30,8 @@ const PurposeSection = () => {
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Creamos Alquila Smart porque vimos un desequilibrio entre propietarios e inquilinos. 
-              Algunos temen perder su dinero; otros temen perder su propiedad. Nuestra misión es 
-              restaurar el equilibrio a través de tecnología, contratos claros y arbitraje rápido.
+              Algunos temen perder su dinero de garantia; otros temen perder su propiedad. Nuestra misión es 
+              restaurar el equilibrio a través de tecnología, contratos claros.
             </p>
           </div>
 

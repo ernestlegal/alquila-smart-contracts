@@ -7,7 +7,7 @@ const TenantsSection = () => {
     {
       icon: Shield,
       title: "Depósito Protegido",
-      description: "Tu depósito de garantía está garantizado y protegido por nuestra plataforma",
+      description: "Tu Garantía en nuestra plataforma la custodioara.",
     },
     {
       icon: TrendingDown,
@@ -16,7 +16,7 @@ const TenantsSection = () => {
     },
     {
       icon: Clock,
-      title: "Reembolsos Rápidos",
+      title: "Reembolsos de Garantia",
       description: "Recupera tu depósito fácil y rápidamente cuando te mudes",
     },
     {
@@ -35,7 +35,7 @@ const TenantsSection = () => {
               Para Inquilinos
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Tu depósito está protegido. Alquila sin miedo. Recupera tu dinero fácilmente con Alquila Smart.
+              Tu Garantía está protegida. Alquila sin miedo. Recupera tu dinero fácilmente con Alquila Smart.
             </p>
           </div>
 
@@ -70,7 +70,7 @@ const TenantsSection = () => {
               </h3>
               <p className="text-lg opacity-90">
                 Explora anuncios verificados, firma contratos inteligentes y disfruta de la seguridad 
-                de reembolsos de depósito garantizados.
+                de reembolsos de tu Garantia.
               </p>
               <div className="aspect-video bg-background/10 rounded-lg mb-6 flex items-center justify-center">
                 <p className="text-primary-foreground/80">Video Explicativo para Inquilinos (30-45 segundos)</p>

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Home, FileText, Scale, CheckCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const OwnersSection = () => {
   const benefits = [
@@ -81,9 +82,11 @@ const OwnersSection = () => {
               />
             </div>
             <div className="text-center">
-              <Button size="lg">
-                Ver Cómo Funciona
-              </Button>
+              <Link to="/propietarios">
+                <Button size="lg">
+                  Ver Cómo Funciona
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

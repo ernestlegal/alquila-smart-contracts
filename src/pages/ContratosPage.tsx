@@ -280,7 +280,7 @@ const ContratosPage = () => {
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Elige el contrato que mejor se adapte a tu tipo de propiedad. Todos incluyen cláusula de desalojo notarial
-              para tu máxima protección. Llena la DESACARGA y llevalo al notario de tu preferencia.
+              para tu máxima protección. Llena la DESCARGA y llevalo al notario de tu preferencia.
             </p>
           </div>
 

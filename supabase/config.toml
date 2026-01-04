@@ -1,5 +1,8 @@
 project_id = "nuyrzdpbmojbiqjtaphu"
 
+[functions.send-reclamo-email]
+verify_jwt = false
+
 [functions.create-mercadopago-preference]
 verify_jwt = false
 

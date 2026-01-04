@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { FileText, Home, Building2, Factory, CheckCircle2, CreditCard, Loader2, CheckCircle, XCircle, Clock } from "lucide-react";
+import { FileText, Home, Building2, Factory, CheckCircle2, CreditCard, Loader2, CheckCircle, XCircle, Clock, Download } from "lucide-react";
 import Footer from "@/components/Footer";
 import { Link, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -18,6 +18,12 @@ const ContratosPage = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const contractTypeLabels: Record<string, string> = {
+    "casa-departamento": "Casa y Departamento",
+    "oficinas-comerciales": "Oficinas y Locales Comerciales",
+    "industriales": "Locales Industriales",
+  };
 
   const contracts = [
     {
@@ -71,11 +77,34 @@ const ContratosPage = () => {
   // Handle payment status from URL
   useEffect(() => {
     const status = searchParams.get('status');
+    const paymentId = searchParams.get('payment_id') || searchParams.get('external_reference') || `payment_${Date.now()}`;
+    const contractType = searchParams.get('external_reference')?.replace('contract_', '').split('_')[0] || '';
+    
     if (status === 'success') {
       toast({
         title: "¡Pago exitoso!",
-        description: "Tu contrato ha sido adquirido. Te enviaremos el documento a tu correo.",
+        description: "Tu contrato está listo para descargar.",
       });
+      
+      // Send contract email
+      const storedEmail = localStorage.getItem('contract_email');
+      if (storedEmail && contractType) {
+        supabase.functions.invoke('send-contract-email', {
+          body: {
+            email: storedEmail,
+            contractType: contractType,
+            contractTitle: contractTypeLabels[contractType] || 'Contrato de Alquiler',
+            paymentId: paymentId,
+          },
+        }).then(({ error }) => {
+          if (error) {
+            console.error('Error sending email:', error);
+          } else {
+            console.log('Contract email sent successfully');
+            localStorage.removeItem('contract_email');
+          }
+        });
+      }
     } else if (status === 'failure') {
       toast({
         title: "Pago no completado",
@@ -120,6 +149,8 @@ const ContratosPage = () => {
       if (error) throw error;
 
       if (data?.init_point) {
+        // Save email to localStorage for later use after payment
+        localStorage.setItem('contract_email', email);
         // Redirect to MercadoPago checkout
         window.location.href = data.init_point;
       } else {
@@ -151,8 +182,32 @@ const ContratosPage = () => {
     <div className="min-h-screen bg-background">
       <main className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Status Message */}
-          {statusIcon && (
+          {/* Success Download Section */}
+          {searchParams.get('status') === 'success' && (
+            <Card className="max-w-2xl mx-auto mb-12 border-green-200 bg-green-50/50">
+              <CardContent className="p-8 text-center">
+                <div className="w-20 h-20 mx-auto rounded-full bg-green-100 flex items-center justify-center mb-6">
+                  <CheckCircle className="h-10 w-10 text-green-600" />
+                </div>
+                <h2 className="text-2xl font-bold text-foreground mb-2">¡Pago Exitoso!</h2>
+                <p className="text-muted-foreground mb-6">
+                  Tu contrato inteligente está listo para descargar. También te hemos enviado una copia a tu correo.
+                </p>
+                <a href="/contracts/contrato-alquiler-inteligente.docx" download>
+                  <Button size="lg" className="bg-green-600 hover:bg-green-700">
+                    <Download className="mr-2 h-5 w-5" />
+                    Descargar Contrato
+                  </Button>
+                </a>
+                <p className="text-sm text-muted-foreground mt-4">
+                  Documento en formato Word (.docx) listo para personalizar
+                </p>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Status Message for other statuses */}
+          {statusIcon && searchParams.get('status') !== 'success' && (
             <div className="max-w-md mx-auto mb-12 text-center animate-fade-in">
               <div className="flex justify-center mb-4">{statusIcon}</div>
             </div>

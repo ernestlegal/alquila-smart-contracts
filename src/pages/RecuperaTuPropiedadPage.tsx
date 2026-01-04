@@ -1,5 +1,16 @@
 import { Link } from "react-router-dom";
-import { AlertTriangle, Clock, Scale, Shield, FileText, Phone, CheckCircle, ArrowRight, Home, Gavel } from "lucide-react";
+import {
+  AlertTriangle,
+  Clock,
+  Scale,
+  Shield,
+  FileText,
+  Phone,
+  CheckCircle,
+  ArrowRight,
+  Home,
+  Gavel,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -8,51 +19,50 @@ const RecuperaTuPropiedadPage = () => {
     {
       icon: Clock,
       title: "Años de Espera",
-      description: "Tu inquilino lleva meses o años sin pagar y el proceso judicial parece interminable."
+      description: "Tu inquilino lleva meses o años sin pagar y el proceso judicial parece interminable.",
     },
     {
       icon: AlertTriangle,
       title: "Desgaste Emocional",
-      description: "El estrés y la frustración de no poder recuperar lo que es tuyo afecta tu calidad de vida."
+      description: "El estrés y la frustración de no poder recuperar lo que es tuyo afecta tu calidad de vida.",
     },
     {
       icon: Scale,
       title: "Sistema Judicial Lento",
-      description: "Los juzgados están saturados y los plazos se extienden indefinidamente."
+      description: "Los juzgados están saturados y los plazos se extienden indefinidamente.",
     },
     {
       icon: FileText,
       title: "Costos Legales Elevados",
-      description: "Cada mes que pasa representa más gastos en abogados y trámites sin resultados."
-    }
+      description: "Cada mes que pasa representa más gastos en abogados y trámites sin resultados.",
+    },
   ];
 
   const solutions = [
     {
       step: "1",
       title: "Evaluación Gratuita",
-      description: "Analizamos tu caso sin costo para determinar la mejor estrategia legal."
+      description: "Analizamos tu caso sin costo para determinar la mejor estrategia legal.",
     },
     {
       step: "2",
       title: "Acta Notarial de Desalojo",
-      description: "Preparamos la documentación con cláusula notarial para agilizar el proceso."
+      description: "Preparamos la documentación con cláusula notarial para agilizar el proceso.",
     },
     {
       step: "3",
       title: "Lanzamiento Judicial Rápido",
-      description: "Solicitamos al juez el lanzamiento con apoyo policial en el menor tiempo posible."
+      description: "Solicitamos al juez el lanzamiento con apoyo policial en el menor tiempo posible.",
     },
     {
       step: "4",
       title: "Recuperas Tu Propiedad",
-      description: "Finalmente vuelves a tener el control total de tu inmueble."
-    }
+      description: "Finalmente vuelves a tener el control total de tu inmueble.",
+    },
   ];
 
   return (
     <div className="min-h-screen bg-background">
-
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4 bg-gradient-hero">
         <div className="container mx-auto max-w-4xl text-center animate-fade-in">
@@ -60,23 +70,21 @@ const RecuperaTuPropiedadPage = () => {
             <AlertTriangle className="w-4 h-4" />
             <span className="text-sm font-medium">¿Inquilino Problemático?</span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            Recupera Tu Propiedad
-          </h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">Recupera Tu Propiedad</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
-            Esta sección está dirigida a propietarios que ya tienen un contrato de alquiler 
-            celebrado antes de conocer nuestro servicio.
+            Esta sección está dirigida a propietarios que ya tienen un contrato de alquiler celebrado antes de conocer
+            nuestro servicio.
           </p>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-            Si no puedes migrar a nuestro servicio y tu inquilino no desea llegar a un acuerdo, 
-            no te paga y necesitas iniciar un <strong className="text-foreground">desalojo judicial</strong>, 
-            te conectamos con un <strong className="text-foreground">abogado especialista en desalojos</strong>.
+            Si no puedes migrar a nuestro servicio y tu inquilino no desea llegar a un acuerdo, no te paga y necesitas
+            iniciar un <strong className="text-foreground">desalojo judicial</strong>, te conectamos con un{" "}
+            <strong className="text-foreground">abogado especialista en desalojos</strong>.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contacto">
               <Button size="lg" className="gap-2">
                 <Phone className="w-4 h-4" />
-                Consulta Gratuita
+                Consulta con el experto
               </Button>
             </Link>
             <a href="https://wa.link/alquilasmart" target="_blank" rel="noopener noreferrer">
@@ -93,16 +101,18 @@ const RecuperaTuPropiedadPage = () => {
       <section className="py-16 px-4 bg-destructive/5">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              ¿Te Identificas con Esto?
-            </h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">¿Te Identificas con Esto?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Miles de propietarios en Perú enfrentan la misma situación. No estás solo.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {problems.map((problem, index) => (
-              <Card key={index} className="animate-fade-in border-destructive/20 hover:shadow-lg transition-shadow" style={{ animationDelay: `${index * 0.1}s` }}>
+              <Card
+                key={index}
+                className="animate-fade-in border-destructive/20 hover:shadow-lg transition-shadow"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <CardContent className="p-6 text-center">
                   <div className="w-14 h-14 rounded-xl bg-destructive/10 flex items-center justify-center mx-auto mb-4">
                     <problem.icon className="w-7 h-7 text-destructive" />
@@ -148,9 +158,7 @@ const RecuperaTuPropiedadPage = () => {
               <Shield className="w-4 h-4" />
               <span className="text-sm font-medium">Nuestra Solución</span>
             </div>
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Te Ayudamos a Recuperar Lo Tuyo
-            </h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Te Ayudamos a Recuperar Lo Tuyo</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Con nuestro proceso optimizado, reducimos significativamente los tiempos de recuperación.
             </p>
@@ -158,7 +166,11 @@ const RecuperaTuPropiedadPage = () => {
 
           <div className="space-y-6">
             {solutions.map((solution, index) => (
-              <Card key={index} className="animate-fade-in hover:shadow-lg transition-shadow" style={{ animationDelay: `${index * 0.1}s` }}>
+              <Card
+                key={index}
+                className="animate-fade-in hover:shadow-lg transition-shadow"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <CardContent className="p-6">
                   <div className="flex items-start gap-6">
                     <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg shrink-0">
@@ -243,13 +255,10 @@ const RecuperaTuPropiedadPage = () => {
           <Card className="animate-fade-in">
             <CardContent className="p-8 text-center">
               <Shield className="w-16 h-16 text-primary mx-auto mb-6" />
-              <h2 className="text-2xl font-bold text-foreground mb-4">
-                Respaldo Legal Especializado
-              </h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">Respaldo Legal Especializado</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-                Nuestro equipo de abogados especializados en derecho inmobiliario te acompaña 
-                en todo el proceso. Conocemos las leyes peruanas y las usamos a tu favor para 
-                que recuperes tu propiedad lo antes posible.
+                Nuestro equipo de abogados especializados en derecho inmobiliario te acompaña en todo el proceso.
+                Conocemos las leyes peruanas y las usamos a tu favor para que recuperes tu propiedad lo antes posible.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
@@ -275,12 +284,10 @@ const RecuperaTuPropiedadPage = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="text-center bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-8 md:p-12 animate-fade-in">
             <AlertTriangle className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              No Esperes Más
-            </h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">No Esperes Más</h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Cada día que pasa es un día más sin tu propiedad y sin recibir el alquiler que te corresponde. 
-              Contáctanos hoy y comienza el proceso de recuperación.
+              Cada día que pasa es un día más sin tu propiedad y sin recibir el alquiler que te corresponde. Contáctanos
+              hoy y comienza el proceso de recuperación.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contacto">
@@ -307,9 +314,7 @@ const RecuperaTuPropiedadPage = () => {
               <div className="flex items-start gap-4 mb-6">
                 <Shield className="w-8 h-8 text-primary shrink-0" />
                 <div>
-                  <h3 className="text-2xl font-semibold text-foreground mb-2">
-                    Prevención para el Futuro
-                  </h3>
+                  <h3 className="text-2xl font-semibold text-foreground mb-2">Prevención para el Futuro</h3>
                   <p className="text-muted-foreground">
                     Una vez que recuperes tu propiedad, te ayudamos a que esto no vuelva a suceder.
                   </p>

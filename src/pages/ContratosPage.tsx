@@ -193,6 +193,11 @@ const ContratosPage = () => {
                 <p className="text-muted-foreground mb-6">
                   Tu contrato inteligente está listo para descargar. También te hemos enviado una copia a tu correo.
                 </p>
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+                  <p className="text-sm text-amber-800">
+                    <strong>📧 ¿No encuentras el correo?</strong> Revisa tu carpeta de <strong>spam</strong> o <strong>correo no deseado</strong>.
+                  </p>
+                </div>
                 <a href="/contracts/contrato-alquiler-inteligente.docx" download>
                   <Button size="lg" className="bg-green-600 hover:bg-green-700">
                     <Download className="mr-2 h-5 w-5" />

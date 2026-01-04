@@ -72,8 +72,14 @@ const TenantsSection = () => {
                 Explora anuncios verificados, firma contratos inteligentes y disfruta de la seguridad 
                 de reembolsos de tu Garantia.
               </p>
-              <div className="aspect-video bg-background/10 rounded-lg mb-6 flex items-center justify-center">
-                <p className="text-primary-foreground/80">Video Explicativo para Inquilinos (30-45 segundos)</p>
+              <div className="aspect-video rounded-lg mb-6 overflow-hidden">
+                <iframe
+                  src="https://www.youtube.com/embed/ZezchfSDN7o?start=3"
+                  title="Video explicativo para Inquilinos"
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
               </div>
               <Button size="lg" variant="secondary">
                 Encuentra tu Próximo Hogar Seguro

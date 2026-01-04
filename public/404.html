@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alquila Smart</title>
+  </head>
+  <body>
+    <script>
+      // SPA fallback for static hosting:
+      // Redirect any unknown path back to index.html while preserving the route.
+      (function () {
+        var pathname = window.location.pathname;
+        var search = window.location.search || "";
+        var hash = window.location.hash || "";
+
+        // Avoid infinite loops
+        if (pathname === "/" || pathname === "/index.html") return;
+
+        var target = "/?redirect=" + encodeURIComponent(pathname + search + hash);
+        window.location.replace(target);
+      })();
+    </script>
+  </body>
+</html>

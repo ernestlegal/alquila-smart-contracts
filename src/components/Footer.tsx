@@ -24,7 +24,6 @@ const Footer = () => {
         { name: "Política de Privacidad", href: "/politica-privacidad" },
         { name: "Términos y Condiciones", href: "/terminos-condiciones" },
         { name: "Libro de Reclamaciones", href: "/libro-reclamaciones" },
-        { name: "Reglas de Arbitraje", href: "/reglas-arbitraje" },
       ],
     },
   ];

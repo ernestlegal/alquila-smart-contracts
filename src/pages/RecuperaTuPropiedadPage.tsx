@@ -265,8 +265,10 @@ const RecuperaTuPropiedadPage = () => {
               <Shield className="w-16 h-16 text-primary mx-auto mb-6" />
               <h2 className="text-2xl font-bold text-foreground mb-4">Respaldo Legal Especializado</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-                Nuestro equipo de abogados especializados en derecho inmobiliario te acompaña en todo el proceso.
-                Conocemos las leyes peruanas y las usamos a tu favor para que recuperes tu propiedad lo antes posible.
+                Sabemos que su contrato actual puede presentar falencias. Mientras el inquilino moroso se enfoca en no
+                pagar y usted en recuperar su inmueble, nosotros aplicamos una estrategia dual: interponemos
+                simultáneamente la demanda de desalojo y la de cobro de deuda. Este cerco legal fuerza al inquilino a
+                negociar su salida inmediata ante el riesgo inminente de embargo.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Shield, TrendingDown, Clock, Award } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const TenantsSection = () => {
   const features = [
@@ -81,9 +82,11 @@ const TenantsSection = () => {
                   allowFullScreen
                 />
               </div>
-              <Button size="lg" variant="secondary">
-                Encuentra tu Próximo Hogar Seguro
-              </Button>
+              <Link to="/inquilinos">
+                <Button size="lg" variant="secondary">
+                  Encuentra tu Próximo Hogar Seguro
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

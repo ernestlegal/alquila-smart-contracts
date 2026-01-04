@@ -1,1 +1,10 @@
 project_id = "nuyrzdpbmojbiqjtaphu"
+
+[functions.create-mercadopago-preference]
+verify_jwt = false
+
+[functions.send-contact-email]
+verify_jwt = false
+
+[functions.send-contract-email]
+verify_jwt = false

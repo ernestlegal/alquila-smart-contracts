@@ -303,7 +303,7 @@ const RecuperaTuPropiedadPage = () => {
               <Link to="/contacto">
                 <Button size="lg" className="gap-2">
                   <Phone className="w-4 h-4" />
-                  Agenda Tu Consulta Gratuita
+                  Consulta con un experto
                 </Button>
               </Link>
               <Link to="/propietarios">

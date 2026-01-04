@@ -1,11 +1,24 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Home, Building2, Factory, CheckCircle2, MessageCircle } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { FileText, Home, Building2, Factory, CheckCircle2, CreditCard, Loader2, CheckCircle, XCircle, Clock } from "lucide-react";
 import Footer from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const ContratosPage = () => {
+  const [searchParams] = useSearchParams();
+  const { toast } = useToast();
+  const [selectedContract, setSelectedContract] = useState<typeof contracts[0] | null>(null);
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const contracts = [
     {
       id: "casa-departamento",
@@ -55,19 +68,96 @@ const ContratosPage = () => {
     },
   ];
 
-  const whatsappNumber = "51999999999"; // Replace with actual WhatsApp number
-  
-  const handleContactClick = (contractTitle: string, price: number) => {
-    const message = encodeURIComponent(
-      `Hola, estoy interesado en adquirir el Contrato Inteligente para ${contractTitle} (S/ ${price}). ¿Podrían brindarme más información?`
-    );
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+  // Handle payment status from URL
+  useEffect(() => {
+    const status = searchParams.get('status');
+    if (status === 'success') {
+      toast({
+        title: "¡Pago exitoso!",
+        description: "Tu contrato ha sido adquirido. Te enviaremos el documento a tu correo.",
+      });
+    } else if (status === 'failure') {
+      toast({
+        title: "Pago no completado",
+        description: "Hubo un problema con tu pago. Por favor, intenta nuevamente.",
+        variant: "destructive",
+      });
+    } else if (status === 'pending') {
+      toast({
+        title: "Pago pendiente",
+        description: "Tu pago está siendo procesado. Te notificaremos cuando se complete.",
+      });
+    }
+  }, [searchParams, toast]);
+
+  const handleBuyClick = (contract: typeof contracts[0]) => {
+    setSelectedContract(contract);
+    setDialogOpen(true);
   };
+
+  const handlePayment = async () => {
+    if (!selectedContract || !email) {
+      toast({
+        title: "Error",
+        description: "Por favor ingresa tu correo electrónico",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('create-mercadopago-preference', {
+        body: {
+          contractType: selectedContract.id,
+          title: selectedContract.title,
+          price: selectedContract.price,
+          email: email,
+        },
+      });
+
+      if (error) throw error;
+
+      if (data?.init_point) {
+        // Redirect to MercadoPago checkout
+        window.location.href = data.init_point;
+      } else {
+        throw new Error('No se pudo crear la preferencia de pago');
+      }
+    } catch (error) {
+      console.error('Payment error:', error);
+      toast({
+        title: "Error",
+        description: "Hubo un problema al procesar tu solicitud. Por favor, intenta nuevamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getStatusIcon = () => {
+    const status = searchParams.get('status');
+    if (status === 'success') return <CheckCircle className="h-16 w-16 text-green-500" />;
+    if (status === 'failure') return <XCircle className="h-16 w-16 text-destructive" />;
+    if (status === 'pending') return <Clock className="h-16 w-16 text-yellow-500" />;
+    return null;
+  };
+
+  const statusIcon = getStatusIcon();
 
   return (
     <div className="min-h-screen bg-background">
       <main className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Status Message */}
+          {statusIcon && (
+            <div className="max-w-md mx-auto mb-12 text-center animate-fade-in">
+              <div className="flex justify-center mb-4">{statusIcon}</div>
+            </div>
+          )}
+
           {/* Header */}
           <div className="text-center mb-16 animate-fade-in">
             <div className="w-20 h-20 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-6">
@@ -124,10 +214,10 @@ const ContratosPage = () => {
                     className="w-full" 
                     size="lg"
                     variant={contract.popular ? "default" : "outline"}
-                    onClick={() => handleContactClick(contract.title, contract.price)}
+                    onClick={() => handleBuyClick(contract)}
                   >
-                    <MessageCircle className="mr-2 h-5 w-5" />
-                    Solicitar Contrato
+                    <CreditCard className="mr-2 h-5 w-5" />
+                    Comprar Contrato
                   </Button>
                 </CardFooter>
               </Card>
@@ -191,6 +281,62 @@ const ContratosPage = () => {
           </div>
         </div>
       </main>
+
+      {/* Payment Dialog */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Comprar Contrato</DialogTitle>
+            <DialogDescription>
+              {selectedContract && (
+                <>
+                  <span className="font-medium text-foreground">{selectedContract.title}</span>
+                  <span className="block text-2xl font-bold text-primary mt-2">
+                    S/ {selectedContract.price}
+                  </span>
+                </>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Correo electrónico</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="tu@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <p className="text-xs text-muted-foreground">
+                Te enviaremos el contrato a este correo después del pago.
+              </p>
+            </div>
+            <Button 
+              className="w-full" 
+              size="lg" 
+              onClick={handlePayment}
+              disabled={isLoading || !email}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Procesando...
+                </>
+              ) : (
+                <>
+                  <CreditCard className="mr-2 h-5 w-5" />
+                  Pagar con MercadoPago
+                </>
+              )}
+            </Button>
+            <p className="text-xs text-center text-muted-foreground">
+              Serás redirigido a MercadoPago para completar el pago de forma segura.
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <Footer />
     </div>
   );

@@ -232,15 +232,15 @@ const RecuperaTuPropiedadPage = () => {
               <CardContent className="p-8 text-center">
                 <Home className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-foreground mb-4">Con Alquila Smart</h3>
-                <p className="text-4xl font-bold text-primary mb-4">15 - 45 días</p>
+                <p className="text-4xl font-bold text-primary mb-4">6 - 9 meses</p>
                 <ul className="text-left space-y-2 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary shrink-0" />
-                    Cláusula Notarial de Desalojo
+                    Se inicia el desalojo + cobro de deudas
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary shrink-0" />
-                    Proceso simplificado y directo
+                    Proceso simplificado (Dependera de como se hizo el contrato)
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary shrink-0" />
@@ -248,7 +248,7 @@ const RecuperaTuPropiedadPage = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary shrink-0" />
-                    Lanzamiento con apoyo policial
+                    Embargo en cuentas bancarias
                   </li>
                 </ul>
               </CardContent>

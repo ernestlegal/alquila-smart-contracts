@@ -95,7 +95,7 @@ const RecuperaTuPropiedadPage = () => {
                 Consulta con el experto
               </Button>
             </Link>
-            <a href="https://wa.link/alquilasmart" target="_blank" rel="noopener noreferrer">
+            <a href="https://api.whatsapp.com/send/?phone=51969104933&text=Hola%2C+necesito+ayuda+para+recuperar+mi+propiedad&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
               <Button size="lg" variant="outline" className="gap-2">
                 Escríbenos por WhatsApp
                 <ArrowRight className="w-4 h-4" />

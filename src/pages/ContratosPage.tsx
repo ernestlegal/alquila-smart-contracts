@@ -48,9 +48,9 @@ const ContratosPage = () => {
       features: [
         "Cláusula de desalojo por escritura pública",
         "Protección de garantía incluida",
-        "Procedimiento de desalojo en 15-30 días",
+        "Procedimiento Notarial de desalojo en 15-30 días",
         "Lista de verificación del estado",
-        "Calendario de pagos personalizado",
+        "Fechas de pagos personalizado",
       ],
     },
     {
@@ -63,7 +63,7 @@ const ContratosPage = () => {
       features: [
         "Cláusula de desalojo por escritura pública",
         "Protección de garantía reforzada",
-        "Procedimiento de desalojo en 15-30 días",
+        "Procedimiento Notarial de desalojo en 15-30 días",
         "Cláusulas comerciales específicas",
         "Calendario de pagos personalizado",
         "Términos de uso comercial",
@@ -78,7 +78,7 @@ const ContratosPage = () => {
       features: [
         "Cláusula de desalojo por escritura pública",
         "Protección de garantía premium",
-        "Procedimiento de desalojo en 15-30 días",
+        "Procedimiento Notarial de desalojo en 15-30 días",
         "Cláusulas industriales especializadas",
         "Calendario de pagos personalizado",
         "Términos de uso industrial",
@@ -355,7 +355,7 @@ const ContratosPage = () => {
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-sm text-muted-foreground">Asesoría para completar el contrato</span>
+                        <span className="text-sm text-muted-foreground">Arbitraje para otras contingencias</span>
                       </li>
                     </ul>
                   </div>
@@ -366,7 +366,7 @@ const ContratosPage = () => {
                         • Gastos de notaría para escritura pública
                       </li>
                       <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                        • Trámites registrales si aplica
+                        • Trámites registrales (no es obligatorio registrarlo)
                       </li>
                       <li className="flex items-start gap-2 text-sm text-muted-foreground">
                         • Legalizaciones adicionales

@@ -355,7 +355,7 @@ const RecuperaTuPropiedadPage = () => {
                 <div className="flex items-start gap-3 p-4 bg-background rounded-lg">
                   <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-semibold text-foreground">Arbitraje Rápido extradesalojo</h4>
+                    <h4 className="font-semibold text-foreground">Arbitraje Rápido Extradesalojo</h4>
                     <p className="text-sm text-muted-foreground">Resolución de conflictos en días, no años</p>
                   </div>
                 </div>

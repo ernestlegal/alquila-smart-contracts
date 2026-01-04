@@ -11,7 +11,7 @@ const WhatsAppButton: React.FC = () => {
     e.preventDefault();
 
     const textoWhatsApp = `Hola, soy ${nombre}. ${mensaje}`;
-    const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoWhatsApp)}`;
+    const urlWhatsApp = `https://api.whatsapp.com/send/?phone=${numeroWhatsApp}&text=${encodeURIComponent(textoWhatsApp)}&type=phone_number&app_absent=0`;
 
     window.open(urlWhatsApp, '_blank');
 

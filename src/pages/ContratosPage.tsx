@@ -334,6 +334,40 @@ const ContratosPage = () => {
             ))}
           </div>
 
+          {/* Important SUNARP Notice */}
+          <div className="max-w-4xl mx-auto mb-8">
+            <Card className="border-amber-300 bg-amber-50/50">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl">⚠️</span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-amber-800 mb-3">IMPORTANTE</h3>
+                    <ul className="space-y-2 text-amber-900">
+                      <li className="flex items-start gap-2">
+                        <span className="font-bold">1.</span>
+                        <span>La propiedad <strong>debe estar registrada en SUNARP</strong>, de lo contrario no puedes acogerte a esta modalidad.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="font-bold">2.</span>
+                        <span>Completa la descarga y llévalo al <strong>notario de tu preferencia</strong>.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="font-bold">3.</span>
+                        <span>Lleva una <strong>copia de la partida electrónica de SUNARP</strong>.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="font-bold">4.</span>
+                        <span>Los firmantes <strong>deben ir presencialmente al notario</strong> para firmar los documentos.</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Additional Info */}
           <div className="max-w-4xl mx-auto">
             <Card className="bg-secondary/30">

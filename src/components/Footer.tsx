@@ -86,26 +86,6 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Newsletter */}
-        <div className="border-t border-border pt-8 mb-8">
-          <div className="max-w-md">
-            <h3 className="font-semibold text-foreground mb-2">Mantente Actualizado</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              Recibe las últimas noticias y consejos de alquiler inteligente en tu bandeja de entrada.
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Ingresa tu correo"
-                className="flex-1 px-4 py-2 rounded-lg border border-input bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <button className="px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors flex items-center">
-                <Mail className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Bar */}
         <div className="border-t border-border pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">

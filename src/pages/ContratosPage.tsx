@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import { Link, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { trackPurchase, trackBeginCheckout, trackViewItem, trackButtonClick } from "@/lib/analytics";
 
 const ContratosPage = () => {
   const [searchParams] = useSearchParams();
@@ -85,6 +86,21 @@ const ContratosPage = () => {
         title: "¡Pago exitoso!",
         description: "Tu contrato está listo para descargar.",
       });
+
+      // Track purchase in Google Analytics
+      const purchasedContract = contracts.find(c => c.id === contractType);
+      if (purchasedContract) {
+        trackPurchase({
+          transactionId: paymentId,
+          value: purchasedContract.price,
+          items: [{
+            id: purchasedContract.id,
+            name: purchasedContract.title,
+            price: purchasedContract.price,
+            category: 'Contratos',
+          }],
+        });
+      }
       
       // Send contract email
       const storedEmail = localStorage.getItem('contract_email');
@@ -122,6 +138,16 @@ const ContratosPage = () => {
   const handleBuyClick = (contract: typeof contracts[0]) => {
     setSelectedContract(contract);
     setDialogOpen(true);
+    
+    // Track view item in Google Analytics
+    trackViewItem({
+      id: contract.id,
+      name: contract.title,
+      price: contract.price,
+      category: 'Contratos',
+    });
+    
+    trackButtonClick('Comprar Contrato', contract.title);
   };
 
   const handlePayment = async () => {
@@ -135,6 +161,14 @@ const ContratosPage = () => {
     }
 
     setIsLoading(true);
+
+    // Track begin checkout in Google Analytics
+    trackBeginCheckout({
+      id: selectedContract.id,
+      name: selectedContract.title,
+      price: selectedContract.price,
+      category: 'Contratos',
+    });
 
     try {
       const { data, error } = await supabase.functions.invoke('create-mercadopago-preference', {

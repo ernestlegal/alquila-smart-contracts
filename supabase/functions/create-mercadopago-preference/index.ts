@@ -55,9 +55,9 @@ serve(async (req) => {
         installments: 12,
       },
       back_urls: {
-        success: `${origin}/contratos?status=success`,
-        failure: `${origin}/contratos?status=failure`,
-        pending: `${origin}/contratos?status=pending`,
+        success: `${origin}/descargas?status=success`,
+        failure: `${origin}/descargas?status=failure`,
+        pending: `${origin}/descargas?status=pending`,
       },
       auto_return: 'approved',
       statement_descriptor: 'ALQUILA SMART',

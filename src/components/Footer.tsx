@@ -5,37 +5,26 @@ const Footer = () => {
     {
       title: "Plataforma",
       links: [
-        { name: "Para Propietarios", href: "#owners" },
-        { name: "Para Inquilinos", href: "#tenants" },
-        { name: "Para Agentes", href: "#agents" },
-        { name: "Descargar Contrato", href: "#download" },
+        { name: "Para Propietarios", href: "/propietarios" },
+        { name: "Para Inquilinos", href: "/inquilinos" },
+        { name: "Descargar Contrato", href: "/descargas" },
       ],
     },
     {
       title: "Empresa",
       links: [
-        { name: "Nuestro Propósito", href: "#purpose" },
-        { name: "Centro Legal", href: "#legal" },
-        { name: "Consejos Smart", href: "#blog" },
-        { name: "Contacto", href: "#contact" },
+        { name: "Nuestro Propósito", href: "/nuestro-proposito" },
+        { name: "Contacto", href: "/contacto" },
+        { name: "Centro de Ayuda", href: "/ayuda" },
       ],
     },
     {
       title: "Legal",
       links: [
-        { name: "Política de Privacidad", href: "#privacy" },
-        { name: "Términos y Condiciones", href: "#terms" },
-        { name: "Libro de Reclamaciones", href: "#complaints" },
-        { name: "Reglas de Arbitraje", href: "#arbitration" },
-      ],
-    },
-    {
-      title: "Soporte",
-      links: [
-        { name: "Centro de Ayuda", href: "#help" },
-        { name: "Preguntas Frecuentes", href: "#faq" },
-        { name: "Contactar Soporte", href: "#support" },
-        { name: "Reportar Problema", href: "#report" },
+        { name: "Política de Privacidad", href: "/politica-privacidad" },
+        { name: "Términos y Condiciones", href: "/terminos-condiciones" },
+        { name: "Libro de Reclamaciones", href: "/libro-reclamaciones" },
+        { name: "Reglas de Arbitraje", href: "/reglas-arbitraje" },
       ],
     },
   ];
@@ -124,14 +113,14 @@ const Footer = () => {
               © {new Date().getFullYear()} Alquila Smart. Todos los derechos reservados.
             </p>
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-              <a href="#privacy" className="hover:text-primary transition-colors">
+              <a href="/politica-privacidad" className="hover:text-primary transition-colors">
                 Privacidad
               </a>
-              <a href="#terms" className="hover:text-primary transition-colors">
+              <a href="/terminos-condiciones" className="hover:text-primary transition-colors">
                 Términos
               </a>
-              <a href="#cookies" className="hover:text-primary transition-colors">
-                Cookies
+              <a href="/libro-reclamaciones" className="hover:text-primary transition-colors">
+                Libro de Reclamaciones
               </a>
             </div>
           </div>

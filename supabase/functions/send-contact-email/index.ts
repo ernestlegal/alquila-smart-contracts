@@ -23,7 +23,7 @@ async function sendEmail(to: string[], subject: string, html: string) {
       Authorization: `Bearer ${RESEND_API_KEY}`,
     },
     body: JSON.stringify({
-      from: "Alquila Smart <onboarding@resend.dev>",
+      from: "Alquila Smart <info@alquilasmart.com>",
       to,
       subject,
       html,
@@ -73,7 +73,7 @@ const handler = async (req: Request): Promise<Response> => {
     `;
 
     const emailResponse = await sendEmail(
-      ["walter@wsrdigital.com"],
+      ["info@alquilasmart.com"],
       `Nuevo mensaje de contacto: ${subject}`,
       ownerEmailHtml
     );

@@ -41,13 +41,15 @@ const RecuperaTuPropiedadPage = () => {
   const solutions = [
     {
       step: "1",
-      title: "Evaluación Gratuita",
-      description: "Analizamos tu caso sin costo para determinar la mejor estrategia legal.",
+      title: "Evaluación o Diagnóstico",
+      description:
+        "Evaluamos tu caso si aún no lo has judicializado y lo diagnosticamos si ya está en proceso judicial.",
     },
     {
       step: "2",
-      title: "Acta Notarial de Desalojo",
-      description: "Preparamos la documentación con cláusula notarial para agilizar el proceso.",
+      title: "La Ley exige previa conciliación",
+      description:
+        "Optimizamos la conciliación proponiendo la entrega inmediata del inmueble a cambio de la condonación de deudas, garantizando una solución rápida y sin conflictos.",
     },
     {
       step: "3",
@@ -58,6 +60,12 @@ const RecuperaTuPropiedadPage = () => {
       step: "4",
       title: "Recuperas Tu Propiedad",
       description: "Finalmente vuelves a tener el control total de tu inmueble.",
+    },
+    {
+      step: "5",
+      title: "Ejercemos presión de embargo",
+      description:
+        "El inquilino problemático esta preparado y experimentado para un desalojo, pero no para un embargo. Esa debilidad la utilizamos al máximo.",
     },
   ];
 

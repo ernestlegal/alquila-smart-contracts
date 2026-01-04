@@ -56,7 +56,7 @@ const DownloadSection = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                  <Link to="/contratos">
+                  <Link to="/descargas">
                     <Button size="lg" className="shadow-primary">
                       <ArrowRight className="mr-2 h-5 w-5" />
                       Ver Contratos y Precios

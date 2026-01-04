@@ -46,6 +46,14 @@ serve(async (req) => {
       payer: {
         email: email,
       },
+      payment_methods: {
+        excluded_payment_types: [
+          { id: 'ticket' },
+          { id: 'atm' },
+          { id: 'bank_transfer' },
+        ],
+        installments: 12,
+      },
       back_urls: {
         success: `${origin}/contratos?status=success`,
         failure: `${origin}/contratos?status=failure`,

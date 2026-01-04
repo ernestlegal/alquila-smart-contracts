@@ -176,7 +176,7 @@ const TerminosCondicionesPage = () => {
                   <p className="text-muted-foreground">Bajada Balta 169, Of. 1204</p>
                   <p className="text-muted-foreground">Miraflores, Lima - Perú</p>
                   <p className="text-muted-foreground">Email: info@alquilasmart.com</p>
-                  <p className="text-muted-foreground">Teléfono: +51 987 507 471</p>
+                  <p className="text-muted-foreground">Teléfono: +51 969 104 933</p>
                 </div>
               </div>
             </div>

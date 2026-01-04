@@ -95,7 +95,7 @@ const handler = async (req: Request): Promise<Response> => {
           <strong>Alquila Smart</strong><br>
           Bajada Balta 169, Of. 1204<br>
           Miraflores, Lima - Perú<br>
-          Tel: +51 987 507 471
+          Tel: +51 969 104 933
         </p>
       </div>
     `;

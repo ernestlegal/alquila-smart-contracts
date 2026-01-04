@@ -250,7 +250,7 @@ const ContratosPage = () => {
                     <strong>correo no deseado</strong>.
                   </p>
                 </div>
-                <a href="/contracts/contrato-alquiler-inteligente.docx" download>
+                <a href="/contracts/contrato-alquiler-inteligente.docx" download="Contrato-Inteligente-AlquilaSmart.docx">
                   <Button size="lg" className="bg-green-600 hover:bg-green-700">
                     <Download className="mr-2 h-5 w-5" />
                     Descargar Contrato

@@ -89,7 +89,7 @@ const AgentsSection = () => {
                   </p>
                 </div>
                 <div className="flex-shrink-0">
-                  <Link to="/descargas">
+                  <Link to="/nuestro-proposito">
                     <Button size="lg">
                       Conocer Más
                     </Button>

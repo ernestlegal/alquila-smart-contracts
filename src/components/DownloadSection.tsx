@@ -62,11 +62,11 @@ const DownloadSection = () => {
                       Ver Contratos y Precios
                     </Button>
                   </Link>
-                  <a href="/contracts/contrato-alquiler-inteligente.docx" download>
+                  <Link to="/descargas">
                     <Button size="lg" variant="outline">
                       Ver Muestra
                     </Button>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </CardContent>

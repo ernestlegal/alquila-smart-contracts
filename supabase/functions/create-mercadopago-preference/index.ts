@@ -60,8 +60,6 @@ serve(async (req) => {
         pending: `${origin}/contratos?status=pending`,
       },
       auto_return: 'approved',
-      expires: false,
-      notification_url: undefined,
       statement_descriptor: 'ALQUILA SMART',
       external_reference: `contract_${contractType}_${Date.now()}`,
     };

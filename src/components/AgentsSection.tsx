@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, Star, Shield, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const AgentsSection = () => {
   const benefits = [
@@ -88,9 +89,11 @@ const AgentsSection = () => {
                   </p>
                 </div>
                 <div className="flex-shrink-0">
-                  <Button size="lg">
-                    Conocer Más
-                  </Button>
+                  <Link to="/descargas">
+                    <Button size="lg">
+                      Conocer Más
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </CardContent>

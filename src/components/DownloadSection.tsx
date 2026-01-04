@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Download, FileText, CheckCircle2 } from "lucide-react";
+import { Download, FileText, CheckCircle2, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const DownloadSection = () => {
   const features = [
@@ -55,10 +56,12 @@ const DownloadSection = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                  <Button size="lg" className="shadow-primary">
-                    <Download className="mr-2 h-5 w-5" />
-                    Descargar Contrato
-                  </Button>
+                  <Link to="/contratos">
+                    <Button size="lg" className="shadow-primary">
+                      <ArrowRight className="mr-2 h-5 w-5" />
+                      Ver Contratos y Precios
+                    </Button>
+                  </Link>
                   <Button size="lg" variant="outline">
                     Ver Muestra
                   </Button>

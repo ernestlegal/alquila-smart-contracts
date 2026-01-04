@@ -12,6 +12,7 @@ import RecuperaTuPropiedadPage from "./pages/RecuperaTuPropiedadPage";
 import InquilinosPage from "./pages/InquilinosPage";
 import ContactoPage from "./pages/ContactoPage";
 import AyudaPage from "./pages/AyudaPage";
+import ContratosPage from "./pages/ContratosPage";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from './components/WhatsAppButton';
 
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/inquilinos" element={<InquilinosPage />} />
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/ayuda" element={<AyudaPage />} />
+            <Route path="/contratos" element={<ContratosPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

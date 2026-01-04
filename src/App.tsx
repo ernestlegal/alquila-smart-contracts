@@ -16,7 +16,7 @@ import ContratosPage from "./pages/ContratosPage";
 import LibroReclamacionesPage from "./pages/LibroReclamacionesPage";
 import PoliticaPrivacidadPage from "./pages/PoliticaPrivacidadPage";
 import TerminosCondicionesPage from "./pages/TerminosCondicionesPage";
-import ReglasArbitrajePage from "./pages/ReglasArbitrajePage";
+
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from './components/WhatsAppButton';
 
@@ -43,7 +43,7 @@ const App = () => (
             <Route path="/libro-reclamaciones" element={<LibroReclamacionesPage />} />
             <Route path="/politica-privacidad" element={<PoliticaPrivacidadPage />} />
             <Route path="/terminos-condiciones" element={<TerminosCondicionesPage />} />
-            <Route path="/reglas-arbitraje" element={<ReglasArbitrajePage />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

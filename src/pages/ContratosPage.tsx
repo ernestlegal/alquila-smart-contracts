@@ -5,7 +5,19 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { FileText, Home, Building2, Factory, CheckCircle2, CreditCard, Loader2, CheckCircle, XCircle, Clock, Download } from "lucide-react";
+import {
+  FileText,
+  Home,
+  Building2,
+  Factory,
+  CheckCircle2,
+  CreditCard,
+  Loader2,
+  CheckCircle,
+  XCircle,
+  Clock,
+  Download,
+} from "lucide-react";
 import Footer from "@/components/Footer";
 import { Link, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,7 +27,7 @@ import { trackPurchase, trackBeginCheckout, trackViewItem, trackButtonClick } fr
 const ContratosPage = () => {
   const [searchParams] = useSearchParams();
   const { toast } = useToast();
-  const [selectedContract, setSelectedContract] = useState<typeof contracts[0] | null>(null);
+  const [selectedContract, setSelectedContract] = useState<(typeof contracts)[0] | null>(null);
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -23,7 +35,7 @@ const ContratosPage = () => {
   const contractTypeLabels: Record<string, string> = {
     "casa-departamento": "Casa y Departamento",
     "oficinas-comerciales": "Oficinas y Locales Comerciales",
-    "industriales": "Locales Industriales",
+    industriales: "Locales Industriales",
   };
 
   const contracts = [
@@ -77,57 +89,62 @@ const ContratosPage = () => {
 
   // Handle payment status from URL
   useEffect(() => {
-    const status = searchParams.get('status');
-    const paymentId = searchParams.get('payment_id') || searchParams.get('external_reference') || `payment_${Date.now()}`;
-    const contractType = searchParams.get('external_reference')?.replace('contract_', '').split('_')[0] || '';
-    
-    if (status === 'success') {
+    const status = searchParams.get("status");
+    const paymentId =
+      searchParams.get("payment_id") || searchParams.get("external_reference") || `payment_${Date.now()}`;
+    const contractType = searchParams.get("external_reference")?.replace("contract_", "").split("_")[0] || "";
+
+    if (status === "success") {
       toast({
         title: "¡Pago exitoso!",
         description: "Tu contrato está listo para descargar.",
       });
 
       // Track purchase in Google Analytics
-      const purchasedContract = contracts.find(c => c.id === contractType);
+      const purchasedContract = contracts.find((c) => c.id === contractType);
       if (purchasedContract) {
         trackPurchase({
           transactionId: paymentId,
           value: purchasedContract.price,
-          items: [{
-            id: purchasedContract.id,
-            name: purchasedContract.title,
-            price: purchasedContract.price,
-            category: 'Contratos',
-          }],
+          items: [
+            {
+              id: purchasedContract.id,
+              name: purchasedContract.title,
+              price: purchasedContract.price,
+              category: "Contratos",
+            },
+          ],
         });
       }
-      
+
       // Send contract email
-      const storedEmail = localStorage.getItem('contract_email');
+      const storedEmail = localStorage.getItem("contract_email");
       if (storedEmail && contractType) {
-        supabase.functions.invoke('send-contract-email', {
-          body: {
-            email: storedEmail,
-            contractType: contractType,
-            contractTitle: contractTypeLabels[contractType] || 'Contrato de Alquiler',
-            paymentId: paymentId,
-          },
-        }).then(({ error }) => {
-          if (error) {
-            console.error('Error sending email:', error);
-          } else {
-            console.log('Contract email sent successfully');
-            localStorage.removeItem('contract_email');
-          }
-        });
+        supabase.functions
+          .invoke("send-contract-email", {
+            body: {
+              email: storedEmail,
+              contractType: contractType,
+              contractTitle: contractTypeLabels[contractType] || "Contrato de Alquiler",
+              paymentId: paymentId,
+            },
+          })
+          .then(({ error }) => {
+            if (error) {
+              console.error("Error sending email:", error);
+            } else {
+              console.log("Contract email sent successfully");
+              localStorage.removeItem("contract_email");
+            }
+          });
       }
-    } else if (status === 'failure') {
+    } else if (status === "failure") {
       toast({
         title: "Pago no completado",
         description: "Hubo un problema con tu pago. Por favor, intenta nuevamente.",
         variant: "destructive",
       });
-    } else if (status === 'pending') {
+    } else if (status === "pending") {
       toast({
         title: "Pago pendiente",
         description: "Tu pago está siendo procesado. Te notificaremos cuando se complete.",
@@ -135,19 +152,19 @@ const ContratosPage = () => {
     }
   }, [searchParams, toast]);
 
-  const handleBuyClick = (contract: typeof contracts[0]) => {
+  const handleBuyClick = (contract: (typeof contracts)[0]) => {
     setSelectedContract(contract);
     setDialogOpen(true);
-    
+
     // Track view item in Google Analytics
     trackViewItem({
       id: contract.id,
       name: contract.title,
       price: contract.price,
-      category: 'Contratos',
+      category: "Contratos",
     });
-    
-    trackButtonClick('Comprar Contrato', contract.title);
+
+    trackButtonClick("Comprar Contrato", contract.title);
   };
 
   const handlePayment = async () => {
@@ -167,11 +184,11 @@ const ContratosPage = () => {
       id: selectedContract.id,
       name: selectedContract.title,
       price: selectedContract.price,
-      category: 'Contratos',
+      category: "Contratos",
     });
 
     try {
-      const { data, error } = await supabase.functions.invoke('create-mercadopago-preference', {
+      const { data, error } = await supabase.functions.invoke("create-mercadopago-preference", {
         body: {
           contractType: selectedContract.id,
           title: selectedContract.title,
@@ -184,14 +201,14 @@ const ContratosPage = () => {
 
       if (data?.init_point) {
         // Save email to localStorage for later use after payment
-        localStorage.setItem('contract_email', email);
+        localStorage.setItem("contract_email", email);
         // Redirect to MercadoPago checkout
         window.location.href = data.init_point;
       } else {
-        throw new Error('No se pudo crear la preferencia de pago');
+        throw new Error("No se pudo crear la preferencia de pago");
       }
     } catch (error) {
-      console.error('Payment error:', error);
+      console.error("Payment error:", error);
       toast({
         title: "Error",
         description: "Hubo un problema al procesar tu solicitud. Por favor, intenta nuevamente.",
@@ -203,10 +220,10 @@ const ContratosPage = () => {
   };
 
   const getStatusIcon = () => {
-    const status = searchParams.get('status');
-    if (status === 'success') return <CheckCircle className="h-16 w-16 text-green-500" />;
-    if (status === 'failure') return <XCircle className="h-16 w-16 text-destructive" />;
-    if (status === 'pending') return <Clock className="h-16 w-16 text-yellow-500" />;
+    const status = searchParams.get("status");
+    if (status === "success") return <CheckCircle className="h-16 w-16 text-green-500" />;
+    if (status === "failure") return <XCircle className="h-16 w-16 text-destructive" />;
+    if (status === "pending") return <Clock className="h-16 w-16 text-yellow-500" />;
     return null;
   };
 
@@ -217,7 +234,7 @@ const ContratosPage = () => {
       <main className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Success Download Section */}
-          {searchParams.get('status') === 'success' && (
+          {searchParams.get("status") === "success" && (
             <Card className="max-w-2xl mx-auto mb-12 border-green-200 bg-green-50/50">
               <CardContent className="p-8 text-center">
                 <div className="w-20 h-20 mx-auto rounded-full bg-green-100 flex items-center justify-center mb-6">
@@ -229,7 +246,8 @@ const ContratosPage = () => {
                 </p>
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
                   <p className="text-sm text-amber-800">
-                    <strong>📧 ¿No encuentras el correo?</strong> Revisa tu carpeta de <strong>spam</strong> o <strong>correo no deseado</strong>.
+                    <strong>📧 ¿No encuentras el correo?</strong> Revisa tu carpeta de <strong>spam</strong> o{" "}
+                    <strong>correo no deseado</strong>.
                   </p>
                 </div>
                 <a href="/contracts/contrato-alquiler-inteligente.docx" download>
@@ -246,7 +264,7 @@ const ContratosPage = () => {
           )}
 
           {/* Status Message for other statuses */}
-          {statusIcon && searchParams.get('status') !== 'success' && (
+          {statusIcon && searchParams.get("status") !== "success" && (
             <div className="max-w-md mx-auto mb-12 text-center animate-fade-in">
               <div className="flex justify-center mb-4">{statusIcon}</div>
             </div>
@@ -261,16 +279,16 @@ const ContratosPage = () => {
               Contratos Inteligentes de Alquiler
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Elige el contrato que mejor se adapte a tu tipo de propiedad. 
-              Todos incluyen cláusula de desalojo notarial para tu máxima protección.
+              Elige el contrato que mejor se adapte a tu tipo de propiedad. Todos incluyen cláusula de desalojo notarial
+              para tu máxima protección. Llena la DESACARGA y llevalo al notario de tu preferencia.
             </p>
           </div>
 
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
             {contracts.map((contract) => (
-              <Card 
-                key={contract.id} 
+              <Card
+                key={contract.id}
                 className={`relative flex flex-col transition-all duration-300 hover:shadow-lg ${
                   contract.popular ? "border-primary shadow-md scale-105" : ""
                 }`}
@@ -285,9 +303,7 @@ const ContratosPage = () => {
                     <contract.icon className="h-8 w-8 text-primary" />
                   </div>
                   <CardTitle className="text-xl">{contract.title}</CardTitle>
-                  <CardDescription className="text-sm">
-                    {contract.description}
-                  </CardDescription>
+                  <CardDescription className="text-sm">{contract.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1">
                   <div className="text-center mb-6">
@@ -304,8 +320,8 @@ const ContratosPage = () => {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full"
                     size="lg"
                     variant={contract.popular ? "default" : "outline"}
                     onClick={() => handleBuyClick(contract)}
@@ -385,9 +401,7 @@ const ContratosPage = () => {
               {selectedContract && (
                 <>
                   <span className="font-medium text-foreground">{selectedContract.title}</span>
-                  <span className="block text-2xl font-bold text-primary mt-2">
-                    S/ {selectedContract.price}
-                  </span>
+                  <span className="block text-2xl font-bold text-primary mt-2">S/ {selectedContract.price}</span>
                 </>
               )}
             </DialogDescription>
@@ -402,16 +416,9 @@ const ContratosPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <p className="text-xs text-muted-foreground">
-                Te enviaremos el contrato a este correo después del pago.
-              </p>
+              <p className="text-xs text-muted-foreground">Te enviaremos el contrato a este correo después del pago.</p>
             </div>
-            <Button 
-              className="w-full" 
-              size="lg" 
-              onClick={handlePayment}
-              disabled={isLoading || !email}
-            >
+            <Button className="w-full" size="lg" onClick={handlePayment} disabled={isLoading || !email}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />

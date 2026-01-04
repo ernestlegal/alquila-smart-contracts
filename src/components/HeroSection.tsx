@@ -1,8 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Download, Upload } from "lucide-react";
 import heroImage from "@/assets/hero-bg.jpg";
+import { trackButtonClick, trackOutboundLink } from "@/lib/analytics";
 
 const HeroSection = () => {
+  const handlePublicarClick = () => {
+    trackButtonClick('Publica Gratis', 'Hero Section');
+    trackOutboundLink('https://alquilo.ai');
+  };
+
+  const handleDescargarClick = () => {
+    trackButtonClick('Descargar Contrato', 'Hero Section');
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-16">
       {/* Background Image with Overlay */}
@@ -28,14 +38,14 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-            <a href="https://alquilo.ai" target="_blank" rel="noopener noreferrer">
+            <a href="https://alquilo.ai" target="_blank" rel="noopener noreferrer" onClick={handlePublicarClick}>
               <Button size="lg" className="group shadow-primary">
                 <Upload className="mr-2 h-5 w-5" />
                 Publica Gratis
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </a>
-            <a href="/descargas">
+            <a href="/descargas" onClick={handleDescargarClick}>
               <Button size="lg" variant="outline">
                 <Download className="mr-2 h-5 w-5" />
                 Descargar Contrato

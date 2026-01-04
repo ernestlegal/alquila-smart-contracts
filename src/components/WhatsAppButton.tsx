@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { trackWhatsAppClick, trackFormSubmission } from '@/lib/analytics';
 
 const WhatsAppButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +10,10 @@ const WhatsAppButton: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Track WhatsApp click in Google Analytics
+    trackWhatsAppClick('Floating Button');
+    trackFormSubmission('WhatsApp Chat', true);
 
     const textoWhatsApp = `Hola, soy ${nombre}. ${mensaje}`;
     const urlWhatsApp = `https://api.whatsapp.com/send/?phone=${numeroWhatsApp}&text=${encodeURIComponent(textoWhatsApp)}&type=phone_number&app_absent=0`;

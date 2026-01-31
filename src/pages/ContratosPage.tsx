@@ -215,26 +215,35 @@ const ContratosPage = () => {
         },
       });
 
-      if (error || !data?.download_url) {
+      if (error || !data?.file_data) {
         throw new Error(data?.error || "Error al generar enlace de descarga");
       }
 
-      setDownloadUrl(data.download_url);
-      setDownloadsRemaining(data.downloads_remaining);
-
-      // Trigger download
+      // Convert base64 to blob and download
+      const byteCharacters = atob(data.file_data);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { 
+        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
+      });
+      
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = data.download_url;
-      link.download = "Contrato-Inteligente-AlquilaSmart.docx";
+      link.href = url;
+      link.download = data.filename || "Contrato-Inteligente-AlquilaSmart.docx";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
 
-      // Clear stored email after successful download
-      localStorage.removeItem("contract_email");
+      setDownloadsRemaining(data.downloads_remaining);
 
       toast({
-        title: "¡Descarga iniciada!",
+        title: "¡Descarga completada!",
         description: `Te quedan ${data.downloads_remaining} descargas disponibles.`,
       });
     } catch (error) {

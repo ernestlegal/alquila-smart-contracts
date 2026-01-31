@@ -7,6 +7,27 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// HTML escape function to prevent XSS
+function escapeHtml(text: string): string {
+  if (!text) return "";
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
+// Input validation
+function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) && email.length <= 255;
+}
+
+function validateStringLength(str: string, maxLength: number): boolean {
+  return typeof str === "string" && str.length <= maxLength;
+}
+
 interface ReclamoEmailRequest {
   tipoDocumento: string;
   numeroDocumento: string;
@@ -53,10 +74,42 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const data: ReclamoEmailRequest = await req.json();
+
+    // Input validation
+    if (!validateEmail(data.email)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid email address" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    if (!validateStringLength(data.nombres, 100) || 
+        !validateStringLength(data.apellidos, 100) ||
+        !validateStringLength(data.descripcion, 5000) ||
+        !validateStringLength(data.pedido, 2000)) {
+      return new Response(
+        JSON.stringify({ error: "Input exceeds maximum length" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     const fechaReclamo = new Date().toLocaleString("es-PE", { timeZone: "America/Lima" });
     const numeroReclamo = `RCL-${Date.now()}`;
 
     console.log("Processing reclamo from:", data.email);
+
+    // Sanitize all user inputs
+    const safeTipoDocumento = escapeHtml(data.tipoDocumento);
+    const safeNumeroDocumento = escapeHtml(data.numeroDocumento);
+    const safeNombres = escapeHtml(data.nombres);
+    const safeApellidos = escapeHtml(data.apellidos);
+    const safeEmail = escapeHtml(data.email);
+    const safeTelefono = escapeHtml(data.telefono);
+    const safeDireccion = escapeHtml(data.direccion);
+    const safeTipoReclamo = escapeHtml(data.tipoReclamo);
+    const safeDetalleProducto = escapeHtml(data.detalleProducto);
+    const safeDescripcion = escapeHtml(data.descripcion);
+    const safePedido = escapeHtml(data.pedido);
 
     // Email to the business
     const businessEmailHtml = `
@@ -78,7 +131,7 @@ const handler = async (req: Request): Promise<Response> => {
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #6b7280;"><strong>Tipo:</strong></td>
-              <td style="padding: 8px 0; color: #111827;">${data.tipoReclamo === 'reclamo' ? '🔴 RECLAMO' : '🟡 QUEJA'}</td>
+              <td style="padding: 8px 0; color: #111827;">${safeTipoReclamo === 'reclamo' ? '🔴 RECLAMO' : '🟡 QUEJA'}</td>
             </tr>
           </table>
         </div>
@@ -88,23 +141,23 @@ const handler = async (req: Request): Promise<Response> => {
           <table style="width: 100%; border-collapse: collapse;">
             <tr>
               <td style="padding: 8px 0; color: #6b7280; width: 40%;"><strong>Documento:</strong></td>
-              <td style="padding: 8px 0; color: #111827;">${data.tipoDocumento}: ${data.numeroDocumento}</td>
+              <td style="padding: 8px 0; color: #111827;">${safeTipoDocumento}: ${safeNumeroDocumento}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #6b7280;"><strong>Nombre:</strong></td>
-              <td style="padding: 8px 0; color: #111827;">${data.nombres} ${data.apellidos}</td>
+              <td style="padding: 8px 0; color: #111827;">${safeNombres} ${safeApellidos}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #6b7280;"><strong>Email:</strong></td>
-              <td style="padding: 8px 0; color: #111827;">${data.email}</td>
+              <td style="padding: 8px 0; color: #111827;">${safeEmail}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #6b7280;"><strong>Teléfono:</strong></td>
-              <td style="padding: 8px 0; color: #111827;">${data.telefono}</td>
+              <td style="padding: 8px 0; color: #111827;">${safeTelefono}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #6b7280;"><strong>Dirección:</strong></td>
-              <td style="padding: 8px 0; color: #111827;">${data.direccion}</td>
+              <td style="padding: 8px 0; color: #111827;">${safeDireccion}</td>
             </tr>
           </table>
         </div>
@@ -112,13 +165,13 @@ const handler = async (req: Request): Promise<Response> => {
         <div style="background: white; padding: 20px; border: 1px solid #e5e7eb; border-top: none;">
           <h2 style="color: #14b8a6; margin-top: 0;">Detalle del Reclamo</h2>
           <p style="color: #6b7280; margin-bottom: 5px;"><strong>Producto/Servicio:</strong></p>
-          <p style="color: #111827; background: #f3f4f6; padding: 10px; border-radius: 5px; margin-top: 0;">${data.detalleProducto}</p>
+          <p style="color: #111827; background: #f3f4f6; padding: 10px; border-radius: 5px; margin-top: 0;">${safeDetalleProducto}</p>
           
           <p style="color: #6b7280; margin-bottom: 5px;"><strong>Descripción:</strong></p>
-          <p style="color: #111827; background: #f3f4f6; padding: 10px; border-radius: 5px; margin-top: 0; white-space: pre-wrap;">${data.descripcion}</p>
+          <p style="color: #111827; background: #f3f4f6; padding: 10px; border-radius: 5px; margin-top: 0; white-space: pre-wrap;">${safeDescripcion}</p>
           
           <p style="color: #6b7280; margin-bottom: 5px;"><strong>Pedido del Consumidor:</strong></p>
-          <p style="color: #111827; background: #f3f4f6; padding: 10px; border-radius: 5px; margin-top: 0; white-space: pre-wrap;">${data.pedido}</p>
+          <p style="color: #111827; background: #f3f4f6; padding: 10px; border-radius: 5px; margin-top: 0; white-space: pre-wrap;">${safePedido}</p>
         </div>
 
         <div style="background: #fef3c7; padding: 15px; border: 1px solid #f59e0b; border-radius: 0 0 10px 10px;">
@@ -131,7 +184,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     await sendEmail(
       ["reclamos@alquilasmart.com"],
-      `[${numeroReclamo}] Nuevo ${data.tipoReclamo === 'reclamo' ? 'Reclamo' : 'Queja'} - ${data.nombres} ${data.apellidos}`,
+      `[${numeroReclamo}] Nuevo ${safeTipoReclamo === 'reclamo' ? 'Reclamo' : 'Queja'} - ${safeNombres} ${safeApellidos}`,
       businessEmailHtml
     );
 
@@ -145,10 +198,10 @@ const handler = async (req: Request): Promise<Response> => {
         </div>
         
         <div style="background: white; padding: 20px; border: 1px solid #e5e7eb;">
-          <p style="color: #374151;">Estimado/a <strong>${data.nombres} ${data.apellidos}</strong>,</p>
+          <p style="color: #374151;">Estimado/a <strong>${safeNombres} ${safeApellidos}</strong>,</p>
           
           <p style="color: #374151;">
-            Hemos recibido tu ${data.tipoReclamo === 'reclamo' ? 'reclamo' : 'queja'} y ha sido registrado 
+            Hemos recibido tu ${safeTipoReclamo === 'reclamo' ? 'reclamo' : 'queja'} y ha sido registrado 
             exitosamente en nuestro Libro de Reclamaciones.
           </p>
 
@@ -157,14 +210,14 @@ const handler = async (req: Request): Promise<Response> => {
             <p style="margin: 5px 0 0 0; color: #0d9488;"><strong>Fecha de Registro:</strong> ${fechaReclamo}</p>
           </div>
 
-          <h3 style="color: #14b8a6;">Resumen de tu ${data.tipoReclamo === 'reclamo' ? 'reclamo' : 'queja'}:</h3>
-          <p style="color: #6b7280;"><strong>Producto/Servicio:</strong> ${data.detalleProducto}</p>
-          <p style="color: #6b7280; background: #f3f4f6; padding: 10px; border-radius: 5px;">${data.descripcion}</p>
+          <h3 style="color: #14b8a6;">Resumen de tu ${safeTipoReclamo === 'reclamo' ? 'reclamo' : 'queja'}:</h3>
+          <p style="color: #6b7280;"><strong>Producto/Servicio:</strong> ${safeDetalleProducto}</p>
+          <p style="color: #6b7280; background: #f3f4f6; padding: 10px; border-radius: 5px;">${safeDescripcion}</p>
 
           <div style="background: #fef3c7; border-radius: 8px; padding: 15px; margin: 20px 0;">
             <p style="margin: 0; color: #92400e; font-size: 14px;">
               📅 <strong>Plazo de Respuesta:</strong> De acuerdo con la Ley N° 29571, daremos respuesta 
-              a tu ${data.tipoReclamo === 'reclamo' ? 'reclamo' : 'queja'} en un plazo máximo de 30 días calendario.
+              a tu ${safeTipoReclamo === 'reclamo' ? 'reclamo' : 'queja'} en un plazo máximo de 30 días calendario.
             </p>
           </div>
 

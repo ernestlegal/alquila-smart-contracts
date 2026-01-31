@@ -31,6 +31,11 @@ const ContratosPage = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [paymentVerified, setPaymentVerified] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+  const [downloadsRemaining, setDownloadsRemaining] = useState<number | null>(null);
 
   const contractTypeLabels: Record<string, string> = {
     "casa-departamento": "Casa y Departamento",
@@ -87,56 +92,90 @@ const ContratosPage = () => {
     },
   ];
 
-  // Handle payment status from URL
+  // Handle payment status from URL - now with server-side verification
   useEffect(() => {
     const status = searchParams.get("status");
-    const paymentId =
-      searchParams.get("payment_id") || searchParams.get("external_reference") || `payment_${Date.now()}`;
-    const contractType = searchParams.get("external_reference")?.replace("contract_", "").split("_")[0] || "";
+    const paymentId = searchParams.get("payment_id") || searchParams.get("collection_id");
+    const externalReference = searchParams.get("external_reference") || "";
+    const contractType = externalReference.replace("contract_", "").split("_")[0] || "";
 
-    if (status === "success") {
-      toast({
-        title: "¡Pago exitoso!",
-        description: "Tu contrato está listo para descargar.",
-      });
-
-      // Track purchase in Google Analytics
-      const purchasedContract = contracts.find((c) => c.id === contractType);
-      if (purchasedContract) {
-        trackPurchase({
-          transactionId: paymentId,
-          value: purchasedContract.price,
-          items: [
-            {
-              id: purchasedContract.id,
-              name: purchasedContract.title,
-              price: purchasedContract.price,
-              category: "Contratos",
-            },
-          ],
-        });
-      }
-
-      // Send contract email
+    if (status === "success" && paymentId) {
+      // Get stored email for verification
       const storedEmail = localStorage.getItem("contract_email");
-      if (storedEmail && contractType) {
+      
+      if (storedEmail) {
+        setIsVerifying(true);
+        
+        // Verify payment server-side
         supabase.functions
-          .invoke("send-contract-email", {
+          .invoke("verify-payment", {
             body: {
+              payment_id: paymentId,
+              external_reference: externalReference,
               email: storedEmail,
-              contractType: contractType,
-              contractTitle: contractTypeLabels[contractType] || "Contrato de Alquiler",
-              paymentId: paymentId,
             },
           })
-          .then(({ error }) => {
-            if (error) {
-              console.error("Error sending email:", error);
-            } else {
-              console.log("Contract email sent successfully");
-              localStorage.removeItem("contract_email");
+          .then(({ data, error }) => {
+            setIsVerifying(false);
+            
+            if (error || !data?.verified) {
+              console.error("Payment verification failed:", error || data);
+              toast({
+                title: "Error de verificación",
+                description: "No pudimos verificar tu pago. Por favor, contacta a soporte.",
+                variant: "destructive",
+              });
+              return;
             }
+
+            setPaymentVerified(true);
+            
+            toast({
+              title: "¡Pago verificado!",
+              description: "Tu contrato está listo para descargar.",
+            });
+
+            // Track purchase in Google Analytics
+            const purchasedContract = contracts.find((c) => c.id === contractType);
+            if (purchasedContract) {
+              trackPurchase({
+                transactionId: paymentId,
+                value: purchasedContract.price,
+                items: [
+                  {
+                    id: purchasedContract.id,
+                    name: purchasedContract.title,
+                    price: purchasedContract.price,
+                    category: "Contratos",
+                  },
+                ],
+              });
+            }
+
+            // Send contract email
+            supabase.functions
+              .invoke("send-contract-email", {
+                body: {
+                  email: storedEmail,
+                  contractType: contractType,
+                  contractTitle: contractTypeLabels[contractType] || "Contrato de Alquiler",
+                  paymentId: paymentId,
+                },
+              })
+              .then(({ error }) => {
+                if (error) {
+                  console.error("Error sending email:", error);
+                } else {
+                  console.log("Contract email sent successfully");
+                }
+              });
           });
+      } else {
+        toast({
+          title: "Error",
+          description: "No encontramos tu información de pago. Por favor, contacta a soporte.",
+          variant: "destructive",
+        });
       }
     } else if (status === "failure") {
       toast({
@@ -151,6 +190,64 @@ const ContratosPage = () => {
       });
     }
   }, [searchParams, toast]);
+
+  // Handle secure download
+  const handleSecureDownload = async () => {
+    const paymentId = searchParams.get("payment_id") || searchParams.get("collection_id");
+    const storedEmail = localStorage.getItem("contract_email");
+
+    if (!paymentId || !storedEmail) {
+      toast({
+        title: "Error",
+        description: "Información de pago no encontrada.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsDownloading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("download-contract", {
+        body: {
+          payment_id: paymentId,
+          email: storedEmail,
+        },
+      });
+
+      if (error || !data?.download_url) {
+        throw new Error(data?.error || "Error al generar enlace de descarga");
+      }
+
+      setDownloadUrl(data.download_url);
+      setDownloadsRemaining(data.downloads_remaining);
+
+      // Trigger download
+      const link = document.createElement("a");
+      link.href = data.download_url;
+      link.download = "Contrato-Inteligente-AlquilaSmart.docx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Clear stored email after successful download
+      localStorage.removeItem("contract_email");
+
+      toast({
+        title: "¡Descarga iniciada!",
+        description: `Te quedan ${data.downloads_remaining} descargas disponibles.`,
+      });
+    } catch (error) {
+      console.error("Download error:", error);
+      toast({
+        title: "Error de descarga",
+        description: error instanceof Error ? error.message : "No pudimos generar tu enlace de descarga.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   const handleBuyClick = (contract: (typeof contracts)[0]) => {
     setSelectedContract(contract);
@@ -235,30 +332,71 @@ const ContratosPage = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Success Download Section */}
           {searchParams.get("status") === "success" && (
-            <Card className="max-w-2xl mx-auto mb-12 border-green-200 bg-green-50/50">
+            <Card className="max-w-2xl mx-auto mb-12 border-primary/30 bg-primary/5">
               <CardContent className="p-8 text-center">
-                <div className="w-20 h-20 mx-auto rounded-full bg-green-100 flex items-center justify-center mb-6">
-                  <CheckCircle className="h-10 w-10 text-green-600" />
-                </div>
-                <h2 className="text-2xl font-bold text-foreground mb-2">¡Pago Exitoso!</h2>
-                <p className="text-muted-foreground mb-6">
-                  Tu contrato inteligente está listo para descargar. También te hemos enviado una copia a tu correo.
-                </p>
-                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
-                  <p className="text-sm text-amber-800">
-                    <strong>📧 ¿No encuentras el correo?</strong> Revisa tu carpeta de <strong>spam</strong> o{" "}
-                    <strong>correo no deseado</strong>.
-                  </p>
-                </div>
-                <a href="/contracts/contrato-alquiler-inteligente.docx" download="Contrato-Inteligente-AlquilaSmart.docx">
-                  <Button size="lg" className="bg-green-600 hover:bg-green-700">
-                    <Download className="mr-2 h-5 w-5" />
-                    Descargar Contrato
-                  </Button>
-                </a>
-                <p className="text-sm text-muted-foreground mt-4">
-                  Documento en formato Word (.docx) listo para personalizar
-                </p>
+                {isVerifying ? (
+                  <>
+                    <div className="w-20 h-20 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                      <Loader2 className="h-10 w-10 text-primary animate-spin" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-foreground mb-2">Verificando pago...</h2>
+                    <p className="text-muted-foreground">
+                      Estamos confirmando tu pago con MercadoPago. Esto solo tomará unos segundos.
+                    </p>
+                  </>
+                ) : paymentVerified ? (
+                  <>
+                    <div className="w-20 h-20 mx-auto rounded-full bg-green-100 flex items-center justify-center mb-6">
+                      <CheckCircle className="h-10 w-10 text-green-600" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-foreground mb-2">¡Pago Verificado!</h2>
+                    <p className="text-muted-foreground mb-6">
+                      Tu contrato inteligente está listo para descargar. También te hemos enviado una confirmación a tu correo.
+                    </p>
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+                      <p className="text-sm text-amber-800">
+                        <strong>📧 ¿No encuentras el correo?</strong> Revisa tu carpeta de <strong>spam</strong> o{" "}
+                        <strong>correo no deseado</strong>.
+                      </p>
+                    </div>
+                    <Button 
+                      size="lg" 
+                      className="bg-green-600 hover:bg-green-700"
+                      onClick={handleSecureDownload}
+                      disabled={isDownloading}
+                    >
+                      {isDownloading ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Generando enlace...
+                        </>
+                      ) : (
+                        <>
+                          <Download className="mr-2 h-5 w-5" />
+                          Descargar Contrato
+                        </>
+                      )}
+                    </Button>
+                    {downloadsRemaining !== null && (
+                      <p className="text-sm text-muted-foreground mt-4">
+                        Descargas restantes: {downloadsRemaining} de 5
+                      </p>
+                    )}
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Documento en formato Word (.docx) listo para personalizar
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-20 h-20 mx-auto rounded-full bg-destructive/10 flex items-center justify-center mb-6">
+                      <XCircle className="h-10 w-10 text-destructive" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-foreground mb-2">Error de Verificación</h2>
+                    <p className="text-muted-foreground mb-6">
+                      No pudimos verificar tu pago. Por favor, contacta a soporte si crees que esto es un error.
+                    </p>
+                  </>
+                )}
               </CardContent>
             </Card>
           )}

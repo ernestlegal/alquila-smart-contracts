@@ -7,6 +7,27 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// HTML escape function to prevent XSS
+function escapeHtml(text: string): string {
+  if (!text) return "";
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
+// Input validation
+function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) && email.length <= 255;
+}
+
+function validateStringLength(str: string, maxLength: number): boolean {
+  return typeof str === "string" && str.length <= maxLength;
+}
+
 interface ContactEmailRequest {
   name: string;
   email: string;
@@ -49,7 +70,29 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { name, email, phone, subject, message }: ContactEmailRequest = await req.json();
 
+    // Input validation
+    if (!validateEmail(email)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid email address" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    if (!validateStringLength(name, 100) || !validateStringLength(subject, 200) || !validateStringLength(message, 5000)) {
+      return new Response(
+        JSON.stringify({ error: "Input exceeds maximum length" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     console.log("Processing contact form submission from:", email);
+
+    // Sanitize all user inputs before embedding in HTML
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safePhone = phone ? escapeHtml(phone) : "";
+    const safeSubject = escapeHtml(subject);
+    const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
 
     // Send email to the business owner
     const ownerEmailHtml = `
@@ -57,13 +100,13 @@ const handler = async (req: Request): Promise<Response> => {
         <h2 style="color: #14b8a6;">Nuevo mensaje de contacto</h2>
         <hr style="border: 1px solid #e5e7eb;" />
         
-        <p><strong>Nombre:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        ${phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : ""}
-        <p><strong>Asunto:</strong> ${subject}</p>
+        <p><strong>Nombre:</strong> ${safeName}</p>
+        <p><strong>Email:</strong> ${safeEmail}</p>
+        ${safePhone ? `<p><strong>Teléfono:</strong> ${safePhone}</p>` : ""}
+        <p><strong>Asunto:</strong> ${safeSubject}</p>
         
         <h3 style="color: #14b8a6;">Mensaje:</h3>
-        <p style="background-color: #f3f4f6; padding: 15px; border-radius: 8px;">${message.replace(/\n/g, "<br>")}</p>
+        <p style="background-color: #f3f4f6; padding: 15px; border-radius: 8px;">${safeMessage}</p>
         
         <hr style="border: 1px solid #e5e7eb;" />
         <p style="color: #6b7280; font-size: 12px;">
@@ -83,12 +126,12 @@ const handler = async (req: Request): Promise<Response> => {
     // Send confirmation email to the user
     const userEmailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #14b8a6;">¡Gracias por contactarnos, ${name}!</h2>
+        <h2 style="color: #14b8a6;">¡Gracias por contactarnos, ${safeName}!</h2>
         <p>Hemos recibido tu mensaje y te responderemos a la brevedad posible.</p>
         
         <h3 style="color: #14b8a6;">Resumen de tu mensaje:</h3>
-        <p><strong>Asunto:</strong> ${subject}</p>
-        <p style="background-color: #f3f4f6; padding: 15px; border-radius: 8px;">${message.replace(/\n/g, "<br>")}</p>
+        <p><strong>Asunto:</strong> ${safeSubject}</p>
+        <p style="background-color: #f3f4f6; padding: 15px; border-radius: 8px;">${safeMessage}</p>
         
         <hr style="border: 1px solid #e5e7eb;" />
         <p style="color: #6b7280; font-size: 14px;">

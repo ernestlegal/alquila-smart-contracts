@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Instagram, Linkedin, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const sections = [
@@ -41,10 +42,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <a href="#home" className="flex items-center space-x-2 mb-4">
+            <Link to="/" className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 rounded-lg bg-gradient-primary" />
               <span className="text-xl font-bold text-foreground">Alquila Smart</span>
-            </a>
+            </Link>
             <p className="text-sm text-muted-foreground mb-4">
               Alquila con confianza, tecnología y justicia.
             </p>
@@ -72,12 +73,12 @@ const Footer = () => {
               <ul className="space-y-2">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -92,15 +93,15 @@ const Footer = () => {
               © {new Date().getFullYear()} Alquila Smart. Todos los derechos reservados.
             </p>
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-              <a href="/politica-privacidad" className="hover:text-primary transition-colors">
+              <Link to="/politica-privacidad" className="hover:text-primary transition-colors">
                 Privacidad
-              </a>
-              <a href="/terminos-condiciones" className="hover:text-primary transition-colors">
+              </Link>
+              <Link to="/terminos-condiciones" className="hover:text-primary transition-colors">
                 Términos
-              </a>
-              <a href="/libro-reclamaciones" className="hover:text-primary transition-colors">
+              </Link>
+              <Link to="/libro-reclamaciones" className="hover:text-primary transition-colors">
                 Libro de Reclamaciones
-              </a>
+              </Link>
             </div>
           </div>
         </div>

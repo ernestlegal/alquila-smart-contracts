@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import { Shield } from "lucide-react";
 
 const PoliticaPrivacidadPage = () => {
@@ -184,8 +183,6 @@ const PoliticaPrivacidadPage = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

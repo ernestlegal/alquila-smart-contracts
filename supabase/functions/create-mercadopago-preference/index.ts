@@ -5,10 +5,27 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Server-side definition of valid contracts and prices
+const VALID_CONTRACTS: Record<string, { title: string; price: number }> = {
+  'casa-departamento': { title: 'Casa / Departamento', price: 200 },
+  'oficinas-comerciales': { title: 'Oficinas y Locales Comerciales', price: 300 },
+  'industriales': { title: 'Naves Industriales', price: 500 },
+};
+
+// Email validation regex
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Sanitize string to prevent injection
+function sanitizeString(str: string): string {
+  if (typeof str !== 'string') return '';
+  return str
+    .replace(/[<>]/g, '')
+    .trim()
+    .slice(0, 200);
+}
+
 interface ContractRequest {
   contractType: string;
-  title: string;
-  price: number;
   email: string;
 }
 
@@ -25,7 +42,32 @@ serve(async (req) => {
       throw new Error('MercadoPago access token not configured');
     }
 
-    const { contractType, title, price, email }: ContractRequest = await req.json();
+    const body = await req.json();
+    const contractType = sanitizeString(body.contractType || '');
+    const email = sanitizeString(body.email || '');
+
+    // Validate contract type against server-side whitelist
+    const validContract = VALID_CONTRACTS[contractType];
+    if (!validContract) {
+      console.error('Invalid contract type:', contractType);
+      return new Response(
+        JSON.stringify({ error: 'Tipo de contrato inválido' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validate email format
+    if (!email || !EMAIL_REGEX.test(email)) {
+      console.error('Invalid email:', email);
+      return new Response(
+        JSON.stringify({ error: 'Email inválido' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Use server-defined price and title (ignore client-supplied values)
+    const price = validContract.price;
+    const title = validContract.title;
 
     console.log('Creating MercadoPago preference for:', { contractType, title, price, email });
 

@@ -6,10 +6,16 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-interface VerifyPaymentRequest {
-  payment_id: string;
-  external_reference: string;
-  email: string;
+// Valid contract types for validation
+const VALID_CONTRACT_TYPES = ['casa-departamento', 'oficinas-comerciales', 'industriales'];
+
+// Email validation regex
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Sanitize string input
+function sanitizeString(str: unknown): string {
+  if (typeof str !== 'string') return '';
+  return str.replace(/[<>]/g, '').trim().slice(0, 500);
 }
 
 serve(async (req) => {
@@ -26,14 +32,40 @@ serve(async (req) => {
       throw new Error("MercadoPago access token not configured");
     }
 
-    const { payment_id, external_reference, email }: VerifyPaymentRequest = await req.json();
+    const body = await req.json();
+    const payment_id = sanitizeString(body.payment_id);
+    const external_reference = sanitizeString(body.external_reference);
+    const email = sanitizeString(body.email);
 
     console.log("Verifying payment:", { payment_id, external_reference, email });
 
     // Validate inputs
-    if (!payment_id || !external_reference || !email) {
+    if (!payment_id || !/^\d+$/.test(payment_id)) {
       return new Response(
-        JSON.stringify({ error: "Missing required fields", verified: false }),
+        JSON.stringify({ error: "Invalid payment ID format", verified: false }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (!external_reference || !external_reference.startsWith('contract_')) {
+      return new Response(
+        JSON.stringify({ error: "Invalid external reference", verified: false }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (!email || !EMAIL_REGEX.test(email)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid email format", verified: false }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Extract and validate contract type from external reference
+    const contractType = external_reference.replace("contract_", "").split("_")[0];
+    if (!VALID_CONTRACT_TYPES.includes(contractType)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid contract type", verified: false }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -100,9 +132,6 @@ serve(async (req) => {
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
-
-    // Extract contract type from external reference (format: contract_TYPE_TIMESTAMP)
-    const contractType = external_reference.replace("contract_", "").split("_")[0];
 
     // Store verified payment in database
     const { error: insertError } = await supabase.from("verified_payments").insert({

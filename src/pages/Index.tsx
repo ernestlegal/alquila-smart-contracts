@@ -4,7 +4,6 @@ import TenantsSection from "@/components/TenantsSection";
 import AgentsSection from "@/components/AgentsSection";
 import PurposeSection from "@/components/PurposeSection";
 import DownloadSection from "@/components/DownloadSection";
-import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -17,7 +16,6 @@ const Index = () => {
         <PurposeSection />
         <DownloadSection />
       </main>
-      <Footer />
     </div>
   );
 };

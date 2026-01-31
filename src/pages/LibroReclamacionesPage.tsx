@@ -5,7 +5,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { BookOpen, Send, CheckCircle } from "lucide-react";
-import Footer from "@/components/Footer";
 
 const LibroReclamacionesPage = () => {
   const { toast } = useToast();
@@ -82,7 +81,6 @@ const LibroReclamacionesPage = () => {
             </Button>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -338,8 +336,6 @@ const LibroReclamacionesPage = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

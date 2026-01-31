@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import { FileText } from "lucide-react";
 
 const TerminosCondicionesPage = () => {
@@ -356,8 +355,6 @@ const TerminosCondicionesPage = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

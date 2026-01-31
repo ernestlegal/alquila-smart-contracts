@@ -163,13 +163,6 @@ const NuestroPropositoPage = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-8 px-4 border-t border-border">
-        <div className="container mx-auto text-center text-muted-foreground">
-          <p>© 2024 Alquila Smart. Todos los derechos reservados.</p>
-        </div>
-      </footer>
     </div>
   );
 };

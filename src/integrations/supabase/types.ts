@@ -14,7 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      verified_payments: {
+        Row: {
+          amount: number
+          contract_type: string
+          created_at: string
+          download_count: number
+          email: string
+          expires_at: string
+          id: string
+          max_downloads: number
+          mercadopago_status: string | null
+          payment_id: string
+          status: string
+        }
+        Insert: {
+          amount: number
+          contract_type: string
+          created_at?: string
+          download_count?: number
+          email: string
+          expires_at?: string
+          id?: string
+          max_downloads?: number
+          mercadopago_status?: string | null
+          payment_id: string
+          status?: string
+        }
+        Update: {
+          amount?: number
+          contract_type?: string
+          created_at?: string
+          download_count?: number
+          email?: string
+          expires_at?: string
+          id?: string
+          max_downloads?: number
+          mercadopago_status?: string | null
+          payment_id?: string
+          status?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

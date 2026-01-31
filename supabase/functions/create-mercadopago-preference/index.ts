@@ -6,9 +6,8 @@ const corsHeaders = {
 };
 
 // Server-side definition of valid contracts and prices
-// TEMP: casa-departamento a 5 soles para prueba
 const VALID_CONTRACTS: Record<string, { title: string; price: number }> = {
-  'casa-departamento': { title: 'Casa / Departamento', price: 5 },
+  'casa-departamento': { title: 'Casa / Departamento', price: 200 },
   'oficinas-comerciales': { title: 'Oficinas y Locales Comerciales', price: 300 },
   'industriales': { title: 'Naves Industriales', price: 500 },
 };

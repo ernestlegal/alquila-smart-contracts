@@ -73,24 +73,14 @@ serve(async (req) => {
       .update({ download_count: payment.download_count + 1 })
       .eq("id", payment.id);
 
-    // Generate signed URL for contract file (valid for 5 minutes)
-    const { data: signedUrlData, error: signedUrlError } = await supabase.storage
-      .from("contracts")
-      .createSignedUrl("contrato-alquiler-inteligente.docx", 300);
-
-    if (signedUrlError || !signedUrlData) {
-      console.error("Error generating signed URL:", signedUrlError);
-      return new Response(
-        JSON.stringify({ error: "Failed to generate download link" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    // External contract URL (hosted on client's server with secret filename)
+    const contractUrl = "http://alquilasmart.com/arcq/contrato-alquiler-inteligente_we3458845erwr23dktrt.docx";
 
     console.log("Download URL generated successfully");
 
     return new Response(
       JSON.stringify({
-        download_url: signedUrlData.signedUrl,
+        download_url: contractUrl,
         downloads_remaining: payment.max_downloads - payment.download_count - 1,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }

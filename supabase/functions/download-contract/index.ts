@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { encodeBase64 } from "https://deno.land/std@0.224.0/encoding/base64.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -9,6 +10,35 @@ const corsHeaders = {
 interface DownloadRequest {
   payment_id: string;
   email: string;
+}
+
+async function downloadContractFile(): Promise<{ base64: string; filename: string } | null> {
+  try {
+    const contractUrl = "http://alquilasmart.com/arcq/contrato-alquiler-inteligente_we3458845erwr23dktrt.docx";
+    
+    console.log("Downloading contract file from:", contractUrl);
+    
+    const response = await fetch(contractUrl);
+    
+    if (!response.ok) {
+      console.error("Failed to download contract file:", response.status, response.statusText);
+      return null;
+    }
+    
+    const arrayBuffer = await response.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
+    const base64Content = encodeBase64(uint8Array);
+    
+    console.log("Contract file downloaded successfully, size:", uint8Array.length, "bytes");
+    
+    return {
+      base64: base64Content,
+      filename: "Contrato-Inteligente-AlquilaSmart.docx"
+    };
+  } catch (error) {
+    console.error("Error downloading contract file:", error);
+    return null;
+  }
 }
 
 serve(async (req) => {
@@ -67,20 +97,28 @@ serve(async (req) => {
       );
     }
 
+    // Download the contract file
+    const contractFile = await downloadContractFile();
+    
+    if (!contractFile) {
+      return new Response(
+        JSON.stringify({ error: "Failed to retrieve contract file" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     // Increment download count
     await supabase
       .from("verified_payments")
       .update({ download_count: payment.download_count + 1 })
       .eq("id", payment.id);
 
-    // External contract URL (hosted on client's server with secret filename)
-    const contractUrl = "http://alquilasmart.com/arcq/contrato-alquiler-inteligente_we3458845erwr23dktrt.docx";
-
-    console.log("Download URL generated successfully");
+    console.log("Download successful, file served");
 
     return new Response(
       JSON.stringify({
-        download_url: contractUrl,
+        file_data: contractFile.base64,
+        filename: contractFile.filename,
         downloads_remaining: payment.max_downloads - payment.download_count - 1,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
